@@ -25,25 +25,9 @@ export default function HomeStack() {
         name="Home"
         component={Home}
         options={({ navigation }) => ({
-          title: "Home",
-          headerStyle: {
-            backgroundColor: "rgb(0, 145, 234)",
-          },
-          headerTintColor: "white",
-          headerTitleStyle: {
-            fontWeight: "bold",
-            color: "white",
-          },
-          headerLeft: () => (
-            <Ionicons
-              name={'md-menu'}
-              size={24}
-              style={{ marginLeft: 10 }}
-              onPress={() =>
-                navigation.dispatch(DrawerActions.toggleDrawer())
-              }
-            />
-          ),
+          header: () => (
+            <Header title="Actualités" hasBackButton={false} navigation={navigation} />
+          )
         })}
       />
     </Stack.Navigator>

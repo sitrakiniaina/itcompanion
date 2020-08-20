@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity,Image } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Header = ({ navigation, title }) => {
@@ -20,7 +20,6 @@ const Header = ({ navigation, title }) => {
 
 const styles = StyleSheet.create({
   header: {
-    marginTop: 26,
     width: "100%",
     height: 60,
     flexDirection: "row",
@@ -44,7 +43,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 16,
     top: 15
-  }
+  },
+  headerImage: {
+    width: 26,
+    height: 26,
+    marginHorizontal: 10
+  },
 });
 
 export default Header;

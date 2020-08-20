@@ -14,72 +14,107 @@ import {
   View,
   Text,
 } from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 export default function HomeScreen() {
   return (
     <>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>HomeScreen</Text>
-              <Text style={styles.sectionDescription}>             
-              </Text>
-            </View>
-          
+      <View style={styles.container}>
+        <View style={styles.box_100}>
+          <View style={styles.inner_large}>
+            <Ionicons name="location" size={50} color="white" />
+            <Text style={styles.sectionTitle}>ME REPERER</Text>
           </View>
-        </ScrollView>
+        </View>
+        <View style={styles.box_25}>
+          <View style={styles.inner}>
+            <Ionicons name="document-sharp" size={50} color="white" />
+            <Text style={styles.sectionTitle}>DOCUMENTS</Text>
+          </View>
+        </View>
+        <View style={styles.box_25}>
+          <View style={styles.inner_calendar}>
+            <Ionicons name="calendar-sharp" size={50} color="white" />
+            <Text style={styles.sectionTitle}>CALENDRIER</Text>
+          </View>
+        </View>
+        <View style={styles.box}>
+          <View style={styles.inner}>
+
+            <Ionicons name="school" size={50} color="white" />
+            <Text style={styles.sectionTitle}>EXAMENS</Text>
+          </View>
+        </View>
+        <View style={styles.box}>
+          <View style={styles.inner}>
+            <Ionicons name="qr-code" size={50} color="white" />
+            <Text style={styles.sectionTitle}>CARTE D'ETUDIANT</Text>
+          </View>
+        </View>
+        <View style={styles.box}>
+          <View style={styles.inner}>
+            <Ionicons name="qr-code" size={50} color="white" />
+            <Text style={styles.sectionTitle}>NOTES</Text>
+          </View>
+        </View>
+      </View>
+
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  container: {
+    width: '100%',
+    height: '85%',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+ 
+  box_100: {
+    width: '100%',
+    height: '25%',
+    padding: 5,
   },
-  body: {
-    backgroundColor: Colors.white,
+  box_75: {
+    width: '75%',
+    height: '25%',
+    padding: 5,
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  box: {
+    width: '50%',
+    height: '25%',
+    padding: 5,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
+  box_25: {
+    width: '25%',
+    height: '25%',
+    padding: 5,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
+  inner_large: {
+    flex: 1,
+    backgroundColor: '#833CE0',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  highlight: {
-    fontWeight: '700',
+  inner: {
+    flex: 1,
+    backgroundColor: '#CA3257',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  inner_calendar: {
+    flex: 1,
+    backgroundColor: '#315237',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
+  sectionTitle : {
+    fontSize: 15,
+    fontWeight: '300',
+    color: '#000000',
+    fontStyle : 'normal'
+  }
+
 });
 
 

@@ -8,16 +8,15 @@ function DescriptionStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen
-                name="Home"
+                name="HomeTest"
                 component={DescriptionScreen}
                 options={({ navigation }) => ({
                     header: () => (
-                        <Header title="Home" hasBackButton={false} navigation={navigation} />
+                        <Header title="Descriptionstest" hasBackButton={false} navigation={navigation} />
                     )
                 })}
             />
         </Stack.Navigator>
-
     );
 }
 export default DescriptionStack;
