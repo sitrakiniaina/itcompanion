@@ -13,9 +13,10 @@ import {
   ScrollView,
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   return (
     <>
       <View style={styles.container}>
@@ -33,13 +34,16 @@ export default function HomeScreen() {
         </View>
         <View style={styles.box_25}>
           <View style={styles.inner_calendar}>
-            <Ionicons name="calendar-sharp" size={50} color="white" />
-            <Text style={styles.sectionTitle}>CALENDRIER</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Calendrier')}
+            >
+              <Ionicons name="calendar-sharp" size={50} color="white" />
+              <Text style={styles.sectionTitle}>CALENDRIER</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.box}>
           <View style={styles.inner}>
-
             <Ionicons name="school" size={50} color="white" />
             <Text style={styles.sectionTitle}>EXAMENS</Text>
           </View>
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
- 
+
   box_100: {
     width: '100%',
     height: '25%',
@@ -108,11 +112,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  sectionTitle : {
+  sectionTitle: {
     fontSize: 15,
     fontWeight: '300',
     color: '#000000',
-    fontStyle : 'normal'
+    fontStyle: 'normal'
   }
 
 });

@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import Header from '../shared/Header';
 import Home from '../screens/HomeScreen';
+import Calendrier from '../screens/Calendrier/CalendrierScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { DrawerActions } from '@react-navigation/native';
 
@@ -26,7 +27,16 @@ export default function HomeStack() {
         component={Home}
         options={({ navigation }) => ({
           header: () => (
-            <Header title="Actualités" hasBackButton={false} navigation={navigation} />
+            <Header title="Actualités" hasBackButton={true} navigation={navigation} />
+          )
+        })}
+      />
+      <Stack.Screen
+        name="Calendrier"
+        component={Calendrier}
+        options={({ navigation }) => ({
+          header: () => (
+            <Header title="Calendrier" hasBackButton={true} navigation={navigation} />
           )
         })}
       />
