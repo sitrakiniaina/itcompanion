@@ -74,6 +74,9 @@ const ListItem = withStyles({
       '& path': {
         fill: 'white' //affect style to child ==> ListItemIcon
       },
+      '& span': {
+        color: 'white'
+      }
     }
   },
  

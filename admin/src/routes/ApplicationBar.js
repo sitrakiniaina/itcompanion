@@ -70,6 +70,14 @@ class ApplicationBar extends Component {
         const { open } = this.state;
         return (
             <>
+            <style>
+                {`
+                    .makeStyles-toolbar-12 {
+                        background: url("https://www.oio.mg/media/100x100/uploads/images/school/logo/183ba157b0_29_1551075016.jpeg") no-repeat center center;
+                        background-size: contain;
+                    }
+                `}
+            </style>
                 <AppBar
                     position="fixed"
                     className={clsx(classes.appBar, {
