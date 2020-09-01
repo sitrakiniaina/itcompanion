@@ -1,13 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
+import MuiListItem from "@material-ui/core/ListItem";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
@@ -18,6 +18,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import SchoolIcon from '@material-ui/icons/School';
 import PeopleIcon from '@material-ui/icons/People';
+
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,37 +62,69 @@ const useStyles = makeStyles((theme) => ({
   nested: {
     paddingLeft: theme.spacing(4),
   },
+  active: {
+    backgroundColor: 'red'
+  }
 }));
+
+const ListItem = withStyles({
+  root: {
+    "&$selected": {
+      backgroundColor: "#3f51b5",
+      '& path': {
+        fill: 'white' //affect style to child ==> ListItemIcon
+      },
+    }
+  },
+ 
+  selected: {}
+})(MuiListItem);
 
 export default function AppDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const { openDrawer } = props;
+  const { openDrawer } = props;  
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
   const itemsList = [
     {
       text: "Home",
       icon: <HomeIcon />,
-      onClick: () => history.push("/")
+      onClick: (() => {
+        history.push("/");
+        setSelectedIndex(0);
+      })
     },
     {
       text: "Evenement",
       icon: <ListIcon />,
-      onClick: () => history.push("/evenement")
+      onClick: (() => {
+        history.push("/evenement");
+        setSelectedIndex(1);
+      })
     },
     {
       text: "Promotion",
       icon: <PeopleIcon />,
-      onClick: () => history.push("/promotion")
+      onClick: (() => {
+        history.push("/promotion");
+        setSelectedIndex(2);
+      })
     },
     {
       text: "Etudiants",
       icon: <SchoolIcon />,
-      onClick: () => history.push("/etudiant")
+      onClick: (() => {
+        history.push("/etudiant");
+        setSelectedIndex(3);
+      })
     },
     {
       text: "Calendrier",
       icon: <CalendarTodayIcon />,
-      onClick: () => history.push("/evenement")
+      onClick: (() => {
+        history.push("/evenement");
+        setSelectedIndex(4);
+      })
     },
   ];
   return (
@@ -116,14 +149,16 @@ export default function AppDrawer(props) {
           </IconButton>
         </div>
         <Divider />
+        
         <List>
           {itemsList.map((item, index) => {
             const { text, icon, onClick } = item;
+            const clsName = "menu"+text;
             return (
-              <ListItem button key={text} onClick={onClick}>
-                {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                <ListItemText primary={text} />
-              </ListItem>
+                <ListItem id={clsName} key={index} onClick={onClick} selected={selectedIndex===index}>
+                  {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                  <ListItemText primary={text} />
+                </ListItem> 
             );
           })}
 
@@ -139,7 +174,6 @@ export default function AppDrawer(props) {
           
         </List>
       </Drawer>
-
     </div>
   );
 }
