@@ -20,6 +20,7 @@ import { CustomizedDialogs } from '../../components/CustomizedDialogs';
 import CustomTableHead from '../baseScreen/CustomTableHead';
 import { createHeader } from '../../utilitaire/utilitaire';
 import CustomIconButton from '../baseScreen/CustomIconButton';
+import { LABEL_SUPPRIMER } from '../../utilitaire/constante';
 
 const styles = theme => ({
     root: {
@@ -43,7 +44,8 @@ const styles = theme => ({
         right: theme.spacing(3),
     },
     button: {
-        margin: theme.spacing(1),
+        backgroundColor: '#00c851',
+        margin: theme.spacing(1),        
     },
 });
 
@@ -163,6 +165,7 @@ class ListScreen extends Component {
                 <CustomizedDialogs
                     open={this.state.openModal}
                     title="Supprimer"
+                    mode={LABEL_SUPPRIMER}
                     description="Voulez vous vraiment supprimer?"
                     close = {this.handleClickModal.bind(this,false)}
                     action = {this.handleAddButton.bind(this)}

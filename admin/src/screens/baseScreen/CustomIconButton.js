@@ -8,10 +8,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const styles = makeStyles({
     editIcon: {
-        color: 'green'
+        color: '#00c851'
     },
     deleteIcon: {
-        color: 'orange'
+        color: '#ff3547'
     }
 })
 

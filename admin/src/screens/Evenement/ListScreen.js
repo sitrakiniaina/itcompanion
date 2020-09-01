@@ -26,7 +26,7 @@ const styles = theme => ({
         paddingRight: theme.spacing(1),
     },
     toolbartitle: {
-        // flex: '1',
+        flex: '1',
     },
     paper: {
         width: '100%',
@@ -37,6 +37,7 @@ const styles = theme => ({
         right: theme.spacing(3),
     },
     button: {
+        backgroundColor: '#00c851',
         margin: theme.spacing(1),
     }
 });

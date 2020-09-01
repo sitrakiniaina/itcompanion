@@ -42,6 +42,9 @@ const styles = theme => ({
     margin: {
         margin: theme.spacing(2),
     },
+    button: {
+        margin: theme.spacing(1),
+    }
 });
 class CreateScreen extends Component {
     constructor(props) {
