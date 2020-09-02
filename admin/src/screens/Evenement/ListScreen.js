@@ -10,10 +10,11 @@ import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
+import CustomTableHead from '../baseScreen/CustomTableHead';
+import { createHeader } from '../../utilitaire/utilitaire';
+
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -25,7 +26,7 @@ const styles = theme => ({
         paddingRight: theme.spacing(1),
     },
     toolbartitle: {
-        // flex: '1',
+        flex: '1',
     },
     paper: {
         width: '100%',
@@ -36,9 +37,19 @@ const styles = theme => ({
         right: theme.spacing(3),
     },
     button: {
+        backgroundColor: '#00c851',
         margin: theme.spacing(1),
-    },
+    }
 });
+
+const StyledTableRow = withStyles((theme) => ({
+    root: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+}))(TableRow);
+
 class ListScreen extends Component {
     constructor(props) {
         super(props);
@@ -46,8 +57,7 @@ class ListScreen extends Component {
     }
     createData(name, calories, fat, carbs, protein) {
         return { name, calories, fat, carbs, protein };
-    }
-
+    }   
 
     render() {
         const { classes } = this.props;
@@ -58,6 +68,12 @@ class ListScreen extends Component {
             this.createData('Cupcake', 305, 3.7, 67, 4.3),
             this.createData('Gingerbread', 356, 16.0, 49, 3.9),
         ];
+        //arg 1 : libelle , arg 2 : text-align
+        const headers = [
+            createHeader('Titre', 'justify'),
+            createHeader('Date', 'right'),
+            createHeader('Type', 'right')
+        ]
         return (
             <main className={classes.root}>
                 <Paper className={classes.paper}>
@@ -80,22 +96,19 @@ class ListScreen extends Component {
                         <Table className={classes.table} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Titre</TableCell>
-                                    <TableCell align="right">Date</TableCell>
-                                    <TableCell align="right">Type</TableCell>
-                                   
+                                    <CustomTableHead header={headers}></CustomTableHead>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {rows.map((row) => (
-                                    <TableRow key={row.name}>
+                                    <StyledTableRow key={row.name}>
                                         <TableCell component="th" scope="row">
                                             {row.name}
                                         </TableCell>
                                         <TableCell align="right">{row.calories}</TableCell>
                                         <TableCell align="right">{row.fat}</TableCell>
                                         
-                                    </TableRow>
+                                    </StyledTableRow>
                                 ))}
                             </TableBody>
                         </Table>

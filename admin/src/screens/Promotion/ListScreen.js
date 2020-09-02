@@ -15,11 +15,13 @@ import Button from '@material-ui/core/Button';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import history from '../../history';
 import { CustomizedDialogs } from '../../components/CustomizedDialogs';
+import CustomTableHead from '../baseScreen/CustomTableHead';
+import { createHeader } from '../../utilitaire/utilitaire';
+import CustomIconButton from '../baseScreen/CustomIconButton';
+import { LABEL_SUPPRIMER } from '../../utilitaire/constante';
+
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -42,9 +44,19 @@ const styles = theme => ({
         right: theme.spacing(3),
     },
     button: {
+        backgroundColor: '#00c851',
         margin: theme.spacing(1),
-    },
+    }
 });
+
+const StyledTableRow = withStyles((theme) => ({
+    root: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+}))(TableRow);
+
 class ListScreen extends Component {
     constructor(props) {
         super(props);
@@ -84,6 +96,14 @@ class ListScreen extends Component {
             this.createData('Promotion 4', 305, 3.7, 67, 4.3),
             this.createData('Promotion 5', 356, 16.0, 49, 3.9),
         ];
+
+        const headers = [
+            createHeader('Libelle', 'justify'),
+            createHeader('Facebook ID', 'justify'),
+            createHeader('Date début', 'right'),
+            createHeader('Date fin', 'right'),
+            createHeader('', 'center')
+        ]
         return (
             <main className={classes.root}>
                 <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
@@ -116,16 +136,12 @@ class ListScreen extends Component {
                         <Table className={classes.table} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Libelle</TableCell>
-                                    <TableCell>Facebook ID</TableCell>
-                                    <TableCell align="right">Date début</TableCell>
-                                    <TableCell align="right">Date fin</TableCell>
-                                    <TableCell align="center"></TableCell>
+                                    <CustomTableHead header={headers}></CustomTableHead>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {rows.map((row) => (
-                                    <TableRow key={row.name}>
+                                    <StyledTableRow key={row.name}>
                                         <TableCell component="th" scope="row">
                                             {row.name}
                                         </TableCell>
@@ -133,18 +149,10 @@ class ListScreen extends Component {
                                         <TableCell align="right">{row.fat}</TableCell>
                                         <TableCell align="right">{row.fat}</TableCell>
                                         <TableCell align="right">
-                                            <Tooltip title="Editer">
-                                                <IconButton aria-label="Editer" onClick={this.handleEditButton.bind(this)}>
-                                                    <EditIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                            <Tooltip title="Supprimer" onClick={this.handleClickModal.bind(this,true)}>
-                                                <IconButton aria-label="Supprimer">
-                                                    <DeleteIcon />
-                                                </IconButton>
-                                            </Tooltip>
+                                            <CustomIconButton label="Editer" event={this.handleEditButton.bind(this)}></CustomIconButton>
+                                            <CustomIconButton label="Supprimer" event={this.handleClickModal.bind(this,true)}></CustomIconButton>
                                         </TableCell>
-                                    </TableRow>
+                                    </StyledTableRow>
                                 ))}
                             </TableBody>
                         </Table>
@@ -153,6 +161,7 @@ class ListScreen extends Component {
                 <CustomizedDialogs
                     open={this.state.openModal}
                     title="Supprimer"
+                    mode={LABEL_SUPPRIMER}
                     description="Voulez vous vraiment supprimer?"
                     close = {this.handleClickModal.bind(this,false)}
                     action = {this.handleAddButton.bind(this)}
