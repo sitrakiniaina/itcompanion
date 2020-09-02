@@ -29,7 +29,7 @@ public class Publication {
 	private String heureFin;
 	
 	@ManyToOne
-	@JoinColumn(name = "idtypepublication", referencedColumnName = "idtypepublication")
+	@JoinColumn(name = "idType", referencedColumnName = "idType")
 	private Typepublication typepublication;
 	
 	
