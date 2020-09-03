@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.springframework.social.facebook.api.Post;
 import com.itu.companion.api.ApiBinding;
-import com.itu.companion.model.Profile;
-import com.itu.companion.oauth2.FacebookOAuth2UserInfo;
+import com.itu.companion.security.oauth2.user.FacebookOAuth2UserInfo;
+
 
 public class Facebook extends ApiBinding{
 

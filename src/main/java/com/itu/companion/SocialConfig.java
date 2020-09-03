@@ -12,7 +12,7 @@ import org.springframework.web.context.annotation.RequestScope;
 import com.itu.companion.api.facebook.Facebook;
 
 
-@Configuration
+//@Configuration
 public class SocialConfig {
 
 	@Bean
