@@ -2,6 +2,7 @@ package com.itu.companion.api;
 
 import java.io.IOException;
 
+import org.hibernate.mapping.Map;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;

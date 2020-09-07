@@ -18,12 +18,12 @@ import com.itu.companion.api.facebook.Facebook;
 @RestController
 public class ConnectionController {
 	
-//	private Facebook facebook;
+	private Facebook facebook;
 //
-//	@Autowired
-//	public ConnectionController(Facebook facebook) {
-//		this.facebook = facebook;
-//	}
+	@Autowired
+	public ConnectionController(Facebook facebook) {
+		this.facebook = facebook;
+	}
 	
 
 	
@@ -34,16 +34,9 @@ public class ConnectionController {
 		return new ResponseEntity<>("Greetings from Spring Boot",HttpStatus.OK);
 	}
 	
-//	@RequestMapping(value = "/login", method = RequestMethod.GET)
-//	public ResponseEntity<Object> LogIn(){
-////		if(!facebook.isAuthorized()) {
-////			return "redirect:/connect/facebook";
-////		}
-////		PostData post = new PostData("321046339120059");
-////		post.message("message");			
-////		facebook.feedOperations().post(post);
-//		
-//		return new ResponseEntity<>(facebook.getProfile(),HttpStatus.OK);
-//		
-//	}
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ResponseEntity<Object> LogIn(){	
+		return new ResponseEntity<>(facebook.getFeed(),HttpStatus.OK);
+		
+	}
 }
