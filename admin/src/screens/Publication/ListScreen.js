@@ -146,13 +146,13 @@ class ListScreen extends Component {
     render() {
         const { classes } = this.props;
         const rows = [
-            this.createData('1', 'Promotion 1', "1159520490900274", "ITU Prom1", "20-08-2017", "20-08-2017"),
-            this.createData('2', 'Promotion 2', "1159520490900274", "ITU Prom2", "20-08-2017", "20-08-2017"),
-            this.createData('4', 'Promotion 4', "1159520490900274", "ITU Prom4", "20-08-2017", "20-08-2017"),
-            this.createData('5', 'Promotion 5', "1159520490900274", "ITU Prom5", "20-08-2017", "20-08-2017"),
-            this.createData('6', 'Promotion 6', "1159520490900274", "ITU Prom6", "20-08-2017", "20-08-2017"),
-            this.createData('7', 'Promotion 7', "1159520490900274", "ITU Prom7", "20-08-2017", "20-08-2017"),
-            this.createData('8', 'Promotion 8', "1159520490900274", "ITU Prom8", "20-08-2017", "20-08-2017"),
+            this.createData('1', 'Publication 1', "1159520490900274", "ITU Prom1", "20-08-2017", "20-08-2017"),
+            this.createData('2', 'Publication 2', "1159520490900274", "ITU Prom2", "20-08-2017", "20-08-2017"),
+            this.createData('4', 'Publication 4', "1159520490900274", "ITU Prom4", "20-08-2017", "20-08-2017"),
+            this.createData('5', 'Publication 5', "1159520490900274", "ITU Prom5", "20-08-2017", "20-08-2017"),
+            this.createData('6', 'Publication 6', "1159520490900274", "ITU Prom6", "20-08-2017", "20-08-2017"),
+            this.createData('7', 'Publication 7', "1159520490900274", "ITU Prom7", "20-08-2017", "20-08-2017"),
+            this.createData('8', 'Publication 8', "1159520490900274", "ITU Prom8", "20-08-2017", "20-08-2017"),
         ];
         const types = [
             {
@@ -192,9 +192,9 @@ class ListScreen extends Component {
         ];
         const headers = [
             createHeader('ID', 'justify'),
-            createHeader('Libelle', 'justify'),
-            createHeader('Facebook Libelle', 'justify'),
-            createHeader('Facebook ID', 'justify'),
+            createHeader('Titre', 'justify'),
+            createHeader('Promotion', 'justify'),
+            createHeader('Promotion Fb ID', 'justify'),
             createHeader('Date début', 'right'),
             createHeader('Date fin', 'right'),
             createHeader('', 'center')

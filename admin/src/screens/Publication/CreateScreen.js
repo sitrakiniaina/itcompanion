@@ -51,6 +51,7 @@ const styles = theme => ({
     },
     margin: {
         margin: theme.spacing(2),
+        minWidth: '120px'
     },
     button: {
         margin: theme.spacing(1),
@@ -102,10 +103,11 @@ class CreateScreen extends Component {
                     <Container className={classes.containerroot}>
                         <form className={classes.form}>
                             <FormControl fullWidth className={classes.margin}>
-                                <InputLabel htmlFor="standard-adornment-amount">Titre</InputLabel>
+                                <InputLabel htmlFor="libelle">Titre</InputLabel>
                                 <Input
                                     required
                                     id="libelle"
+                                    name="libelle"
                                     type="text"
                                 />
                             </FormControl>
@@ -113,58 +115,80 @@ class CreateScreen extends Component {
                             <FormControl fullWidth className={classes.margin}>
                                 <InputLabel htmlFor="type">Type</InputLabel>
                                 <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
+                                    id="type"
+                                    name="type"
                                 >
-                                   
                                     {types.map((option) => (
                                         <MenuItem value={option.value}>{option.label}</MenuItem>
-                                        
+
                                     ))}
                                 </Select>
-                                
+
                             </FormControl>
-                            {/* </FormControl> */}
+
                             <Grid>
                                 <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="standard-adornment-amount">Date début</InputLabel>
+                                    <InputLabel htmlFor="date-debut">Date début</InputLabel>
                                     <Input
                                         required
                                         id="date-debut"
                                         type="date"
                                         defaultValue="2017-05-24"
+                                        name="date-debut"
 
                                     />
                                 </FormControl>
                                 <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="standard-adornment-amount">Date fin</InputLabel>
+                                    <InputLabel htmlFor="heure-debut">Heure début</InputLabel>
+                                    <Input
+                                        required
+                                        id="heure-debut"
+                                        type="time"
+                                        defaultValue="08:00"
+                                        name="heure-debut"
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid>
+                                <FormControl className={classes.margin}>
+                                    <InputLabel htmlFor="date-fin">Date fin</InputLabel>
                                     <Input
                                         required
                                         id="date-fin"
                                         type="date"
                                         defaultValue="2017-05-24"
+                                        name="date-fin"
+
+                                    />
+                                </FormControl>
+                                <FormControl className={classes.margin}>
+                                    <InputLabel htmlFor="heure-fin">Heure fin</InputLabel>
+                                    <Input
+                                        required
+                                        id="heure-fin"
+                                        type="time"
+                                        defaultValue="17:00"
+                                        name="heure-fin"
                                     />
                                 </FormControl>
                             </Grid>
                             <TextField
                                 style={{ width: '100%' }}
-                                id="outlined-multiline-flexible"
+                                id="description"
                                 label="Description"
+                                name="description"
                                 multiline
                                 rows={4}
-                            // onChange={handleChange}
-
                             />
                             <FormControl fullWidth className={classes.margin}>
-                                <InputLabel htmlFor="standard-adornment-amount">Lien</InputLabel>
+                                <InputLabel htmlFor="lien">Lien</InputLabel>
                                 <Input
-                                    name="url"
-                                    id="url"
+                                    name="lien"
+                                    id="lien"
                                     type="text"
                                 />
                             </FormControl>
                             <Autocomplete
-
                                 style={{ width: '100%' }}
                                 multiple
                                 id="promotion"
