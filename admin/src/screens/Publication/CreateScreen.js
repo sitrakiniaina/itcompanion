@@ -34,7 +34,7 @@ const styles = theme => ({
             margin: theme.spacing(2),
             width: '25ch',
         },
-        '& .MuiTextField-root':{
+        '& .MuiTextField-root': {
             margin: theme.spacing(2),
             width: '100%',
         },
@@ -69,7 +69,7 @@ class CreateScreen extends Component {
             { title: 'Promotion 4', year: 1994 },
             { title: 'Promotion 5', year: 1972 },
             { title: 'promotion 6', year: 1974 }
-            
+
         ]
         const types = [
             {
@@ -113,18 +113,16 @@ class CreateScreen extends Component {
                             <FormControl fullWidth className={classes.margin}>
                                 <InputLabel htmlFor="type">Type</InputLabel>
                                 <Select
-                                    native
-                                    inputProps={{
-                                        name: 'type',
-                                        id: 'type',
-                                    }}
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
                                 >
+                                   
                                     {types.map((option) => (
-                                        <option key={option.value} value={option.value}>
-                                            {option.label}
-                                        </option>
+                                        <MenuItem value={option.value}>{option.label}</MenuItem>
+                                        
                                     ))}
                                 </Select>
+                                
                             </FormControl>
                             {/* </FormControl> */}
                             <Grid>
