@@ -97,6 +97,16 @@ class CreateScreen extends Component {
                             </Grid>
                             <Grid>
                                 <FormControl fullWidth className={classes.margin}>
+                                    <InputLabel htmlFor="standard-adornment-amount">Facebook Libelle</InputLabel>
+                                    <Input
+                                        required
+                                        id="facebooklibelle"
+                                        type="text"
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid>
+                                <FormControl fullWidth className={classes.margin}>
                                     <InputLabel htmlFor="standard-adornment-amount">Facebook ID</InputLabel>
                                     <Input
                                         required

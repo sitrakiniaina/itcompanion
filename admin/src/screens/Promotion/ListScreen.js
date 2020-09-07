@@ -66,8 +66,8 @@ class ListScreen extends Component {
             openModal : false
         };
     }
-    createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
+    createData(id,libelle, facebookid, facebooklibelle, datedebut, datefin) {
+        return { id, libelle, facebookid, facebooklibelle, datedebut,datefin };
     }
     handleClick(event) {
         event.preventDefault();
@@ -90,15 +90,19 @@ class ListScreen extends Component {
     render() {
         const { classes } = this.props;
         const rows = [
-            this.createData('Promotion 1', "https://www.facebook.com/groups/1159520490900274", "20-08-2017", 24, 4.0),
-            this.createData('Promotion 2', 237, 9.0, 37, 4.3),
-            this.createData('Promotion 3', 262, 16.0, 24, 6.0),
-            this.createData('Promotion 4', 305, 3.7, 67, 4.3),
-            this.createData('Promotion 5', 356, 16.0, 49, 3.9),
+            this.createData('1','Promotion 1', "1159520490900274","ITU Prom1", "20-08-2017", "20-08-2017"),
+            this.createData('2','Promotion 2', "1159520490900274","ITU Prom2", "20-08-2017", "20-08-2017"),
+            this.createData('4','Promotion 4', "1159520490900274","ITU Prom4", "20-08-2017", "20-08-2017"),
+            this.createData('5','Promotion 5', "1159520490900274","ITU Prom5", "20-08-2017", "20-08-2017"),
+            this.createData('6','Promotion 6', "1159520490900274","ITU Prom6", "20-08-2017", "20-08-2017"),
+            this.createData('7','Promotion 7', "1159520490900274","ITU Prom7", "20-08-2017", "20-08-2017"),
+            this.createData('8','Promotion 8', "1159520490900274","ITU Prom8", "20-08-2017", "20-08-2017"),
         ];
 
         const headers = [
-            createHeader('Libelle', 'justify'),
+            createHeader('ID', 'justify'),
+            createHeader('Libelle', 'justify'),          
+            createHeader('Facebook Libelle', 'justify'),
             createHeader('Facebook ID', 'justify'),
             createHeader('Date début', 'right'),
             createHeader('Date fin', 'right'),
@@ -142,12 +146,14 @@ class ListScreen extends Component {
                             <TableBody>
                                 {rows.map((row) => (
                                     <StyledTableRow key={row.name}>
-                                        <TableCell component="th" scope="row">
-                                            {row.name}
+                                        <TableCell >{row.id}</TableCell>
+                                        <TableCell >
+                                            {row.libelle}
                                         </TableCell>
-                                        <TableCell >{row.calories}</TableCell>
-                                        <TableCell align="right">{row.fat}</TableCell>
-                                        <TableCell align="right">{row.fat}</TableCell>
+                                        <TableCell >{row.facebooklibelle}</TableCell>
+                                        <TableCell >{row.facebookid}</TableCell>
+                                        <TableCell align="right">{row.datedebut}</TableCell>
+                                        <TableCell align="right">{row.datefin}</TableCell>
                                         <TableCell align="right">
                                             <CustomIconButton label="Editer" event={this.handleEditButton.bind(this)}></CustomIconButton>
                                             <CustomIconButton label="Supprimer" event={this.handleClickModal.bind(this,true)}></CustomIconButton>

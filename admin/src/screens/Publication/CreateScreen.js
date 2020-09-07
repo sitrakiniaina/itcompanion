@@ -57,7 +57,7 @@ class CreateScreen extends Component {
                 <Paper className={classes.paper}>
                     <Toolbar className={classes.toolbar}>
                         <Typography className={classes.toolbartitle} variant="h5" id="tableTitle" component="div">
-                            Créer promotion
+                            Créer publication
                         </Typography>
 
                     </Toolbar>

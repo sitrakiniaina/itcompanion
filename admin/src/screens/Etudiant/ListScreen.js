@@ -67,8 +67,8 @@ class ListScreen extends Component {
             openModal : false
         };
     }
-    createData(id,name, calories, fat, carbs, protein) {
-        return {id, name, calories, fat, carbs, protein };
+    createData(id,name, firstname, datenaissance, promotion, semestre) {
+        return {id, name, firstname, datenaissance, promotion, semestre };
     }
     handleClick(event) {
         event.preventDefault();
@@ -91,11 +91,11 @@ class ListScreen extends Component {
     render() {
         const { classes } = this.props;
         const rows = [
-            this.createData('ETU001','Rasendrahasinarivo', "Sitrakiniaina", "20-08-2017", 1, 4.0),
-            this.createData('ETU001','Rasendrahasinarivo', "Herinihaja", "20-08-2017", 8, 4.3),
-            this.createData('ETU001','Rasendrahasinarivo', "Herimihary", "20-08-2017", 6, 6.0),
-            this.createData('ETU001','Rasendrahasinarivo', "Andoniaina", "20-08-2017", 5, 4.3),
-            this.createData('ETU001','Rasendrahasinarivo', "Natacha", "20-08-2017", 3, 3.9),
+            this.createData('ETU001','Rasendrahasinarivo', "Sitrakiniaina", "20-08-2017", 1, "S1"),
+            this.createData('ETU003','Rakotoarisoa', "Herinihaja", "20-08-2017", 8, "S2"),
+            this.createData('ETU034','Rakoto', "Herimihary", "20-08-2017", 6, "S3"),
+            this.createData('ETU023','Rakotovao', "Jean", "20-08-2017", 5, "S5"),
+            this.createData('ETU024','Ralay', "Ngita", "20-08-2017", 3, "S1"),
         ];
         const headers = [
             createHeader('ID', 'justify'),
@@ -103,6 +103,7 @@ class ListScreen extends Component {
             createHeader('Prénom', 'justify'),
             createHeader('Date Naissance', 'justify'),
             createHeader('Promotion', 'justify'),
+            createHeader('Semestre', 'justify'),
             createHeader('', 'center')
         ]
         return (
@@ -149,9 +150,10 @@ class ListScreen extends Component {
                                         <TableCell component="th" scope="row">
                                             {row.name}
                                         </TableCell>
-                                        <TableCell >{row.calories}</TableCell>
-                                        <TableCell >{row.fat}</TableCell>
-                                        <TableCell >{row.carbs}</TableCell>
+                                        <TableCell >{row.firstname}</TableCell>
+                                        <TableCell >{row.datenaissance}</TableCell>
+                                        <TableCell >{row.promotion}</TableCell>
+                                        <TableCell >{row.semestre}</TableCell>
                                         <TableCell align="right">
                                             <CustomIconButton label="Editer" event={this.handleEditButton.bind(this)}></CustomIconButton>
                                             <CustomIconButton label="Supprimer" event={this.handleClickModal.bind(this,true)}></CustomIconButton>

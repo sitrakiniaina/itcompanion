@@ -55,7 +55,7 @@ class DetailsScreen extends Component {
                 <Paper className={classes.paper}>
                     <Toolbar className={classes.toolbar}>
                         <Typography className={classes.toolbartitle} variant="h5" id="tableTitle" component="div">
-                            Modifier promotion
+                            Créer promotion
                         </Typography>
 
                     </Toolbar>
@@ -95,6 +95,16 @@ class DetailsScreen extends Component {
                             </Grid>
                             <Grid>
                                 <FormControl fullWidth className={classes.margin}>
+                                    <InputLabel htmlFor="standard-adornment-amount">Facebook Libelle</InputLabel>
+                                    <Input
+                                        required
+                                        id="facebooklibelle"
+                                        type="text"
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid>
+                                <FormControl fullWidth className={classes.margin}>
                                     <InputLabel htmlFor="standard-adornment-amount">Facebook ID</InputLabel>
                                     <Input
                                         required
@@ -112,7 +122,7 @@ class DetailsScreen extends Component {
                                     //onClick={this.handleAddButton.bind(this)}
                                     startIcon={<SaveIcon />}
                                 >
-                                    Modifier
+                                    Ajouter
                             </Button>
                             </Grid>
                         </form>

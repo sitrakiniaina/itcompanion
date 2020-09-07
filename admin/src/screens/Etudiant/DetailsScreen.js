@@ -13,6 +13,7 @@ import Input from '@material-ui/core/Input';
 import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import blackProfile from '../../images/blank-profile.png';
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -63,7 +64,7 @@ class DetailsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            image: "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+            image: blackProfile
         };
         this.onImageChange = this.onImageChange.bind(this);
 
