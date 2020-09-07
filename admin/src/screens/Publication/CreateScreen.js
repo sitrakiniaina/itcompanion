@@ -11,6 +11,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import SaveIcon from '@material-ui/icons/Save';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import Chip from '@material-ui/core/Chip';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -28,11 +34,15 @@ const styles = theme => ({
             margin: theme.spacing(2),
             width: '25ch',
         },
+        '& .MuiTextField-root':{
+            margin: theme.spacing(2),
+            width: '100%',
+        },
         alignItems: 'center',
         flexDirection: 'column',
     },
     form: {
-        width: '500px',
+        width: '700px',
     },
     formfooter: {
         display: 'flex',
@@ -52,7 +62,35 @@ class CreateScreen extends Component {
     }
     render() {
         const { classes } = this.props;
+        const promotions = [
+            { title: 'Promotion 1', year: 1994 },
+            { title: 'Promotion 2', year: 1972 },
+            { title: 'promotion 3', year: 1974 },
+            { title: 'Promotion 4', year: 1994 },
+            { title: 'Promotion 5', year: 1972 },
+            { title: 'promotion 6', year: 1974 }
+            
+        ]
+        const types = [
+            {
+                value: '1',
+                label: 'Evenement',
+            },
+            {
+                value: '2',
+                label: 'Stage',
+            },
+            {
+                value: '3',
+                label: 'Emplois',
+            },
+            {
+                value: '4',
+                label: 'Actualité',
+            },
+        ];
         return (
+
             <div className={classes.root}>
                 <Paper className={classes.paper}>
                     <Toolbar className={classes.toolbar}>
@@ -64,15 +102,31 @@ class CreateScreen extends Component {
                     <Container className={classes.containerroot}>
                         <form className={classes.form}>
                             <FormControl fullWidth className={classes.margin}>
-                                <InputLabel htmlFor="standard-adornment-amount">Libelle</InputLabel>
+                                <InputLabel htmlFor="standard-adornment-amount">Titre</InputLabel>
                                 <Input
                                     required
                                     id="libelle"
                                     type="text"
-
                                 />
                             </FormControl>
 
+                            <FormControl fullWidth className={classes.margin}>
+                                <InputLabel htmlFor="type">Type</InputLabel>
+                                <Select
+                                    native
+                                    inputProps={{
+                                        name: 'type',
+                                        id: 'type',
+                                    }}
+                                >
+                                    {types.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            {/* </FormControl> */}
                             <Grid>
                                 <FormControl className={classes.margin}>
                                     <InputLabel htmlFor="standard-adornment-amount">Date début</InputLabel>
@@ -91,31 +145,42 @@ class CreateScreen extends Component {
                                         id="date-fin"
                                         type="date"
                                         defaultValue="2017-05-24"
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <TextField
+                                style={{ width: '100%' }}
+                                id="outlined-multiline-flexible"
+                                label="Description"
+                                multiline
+                                rows={4}
+                            // onChange={handleChange}
 
+                            />
+                            <FormControl fullWidth className={classes.margin}>
+                                <InputLabel htmlFor="standard-adornment-amount">Lien</InputLabel>
+                                <Input
+                                    name="url"
+                                    id="url"
+                                    type="text"
+                                />
+                            </FormControl>
+                            <Autocomplete
+
+                                style={{ width: '100%' }}
+                                multiple
+                                id="promotion"
+                                options={promotions}
+                                getOptionLabel={(option) => option.title}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        variant="standard"
+                                        label="Promotion"
+                                        placeholder="promotion"
                                     />
-                                </FormControl>
-                            </Grid>
-                            <Grid>
-                                <FormControl fullWidth className={classes.margin}>
-                                    <InputLabel htmlFor="standard-adornment-amount">Facebook Libelle</InputLabel>
-                                    <Input
-                                        required
-                                        id="facebooklibelle"
-                                        type="text"
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid>
-                                <FormControl fullWidth className={classes.margin}>
-                                    <InputLabel htmlFor="standard-adornment-amount">Facebook ID</InputLabel>
-                                    <Input
-                                        required
-                                        id="facebookid"
-                                        type="text"
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Divider></Divider>
+                                )}
+                            />
                             <Grid className={classes.formfooter}>
                                 <Button
                                     variant="contained"

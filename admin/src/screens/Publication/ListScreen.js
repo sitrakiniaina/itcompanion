@@ -24,7 +24,8 @@ import { LABEL_SUPPRIMER } from '../../utilitaire/constante';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import IconButton from '@material-ui/core/IconButton';
+import Pagination from '@material-ui/lab/Pagination';
+import TablePagination from '@material-ui/core/TablePagination';
 
 const styles = theme => ({
     root: {
@@ -119,7 +120,7 @@ class ListScreen extends Component {
     }
 
     handleAddButton() {
-        history.push("/promotion/create");
+        history.push("/publication/create");
     }
     handleEditButton() {
         history.push("/promotion/update");
@@ -200,15 +201,7 @@ class ListScreen extends Component {
         ]
         return (
             <main className={classes.root}>
-                <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
-                    <Link color="inherit" href="/" onClick={this.handleClick}>
-                        Material-UI
-                     </Link>
-                    <Link color="inherit" href="/getting-started/installation/" onClick={this.handleClick}>
-                        Core
-                    </Link>
-                    <Typography color="textPrimary">Breadcrumb</Typography>
-                </Breadcrumbs>
+               
                 <Paper className={classes.paper}>
                     <Toolbar className={classes.toolbar}>
                         <Grid className={classes.toolbarHead}>
@@ -217,9 +210,7 @@ class ListScreen extends Component {
                             </Typography>
                             <Grid>
                                 <Tooltip title="Filter list">
-                                    {/* <IconButton aria-label="filter list">
-                                        <FilterListIcon />
-                                    </IconButton> */}
+
                                     <Button
                                         color="#88A8E4"
                                         className={classes.filterButton}
@@ -328,7 +319,17 @@ class ListScreen extends Component {
                                 ))}
                             </TableBody>
                         </Table>
+                        {/* <Pagination count={10} color="primary" /> */}
                     </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 25]}
+                        component="div"
+                        count={4}
+                        rowsPerPage={5}
+                        page={1}
+                        // onChangePage={handleChangePage}
+                        // onChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
                 </Paper>
                 <CustomizedDialogs
                     open={this.state.openModal}
