@@ -21,28 +21,28 @@ const Header = ({ navigation, title }) => {
 const styles = StyleSheet.create({
   header: {
     width: "100%",
-    height: 60,
+    height: 80,
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "center",
-    backgroundColor: "#000"
+    backgroundColor: "#307ecc"
   },
   headerTitle: {
     flexDirection: "row",
     alignItems: "center",
-    alignContent: "center"
+    alignContent: "center",
+    top: 20,
   },
   headerText: {
     fontWeight: "bold",
     fontSize: 20,
-    color: "#333",
     letterSpacing: 1,
     color: "#fff"
   },
   icons: {
     position: "absolute",
     left: 16,
-    top: 15
+    top: 45
   },
   headerImage: {
     width: 26,
