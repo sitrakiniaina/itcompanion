@@ -1,11 +1,16 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity,Image } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Platform } from "@unimodules/core";
+
+const paddingTopHeader = (Platform.OS === 'ios') ? 80 : 50;
+const paddingTopTitle = (Platform.OS === 'ios') ? 20 : 2;
+const paddingTopIcon = (Platform.OS === 'ios') ? 45 : 13;
 
 const Header = ({ navigation, title }) => {
   const openMenu = () => {
     navigation.openDrawer();
-  };
+  };  
   return (
     <View style={styles.header}>
       <TouchableOpacity onPress={openMenu} style={styles.icons}>
@@ -21,7 +26,7 @@ const Header = ({ navigation, title }) => {
 const styles = StyleSheet.create({
   header: {
     width: "100%",
-    height: 80,
+    height: paddingTopHeader,
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "center",
@@ -31,7 +36,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignContent: "center",
-    top: 20,
+    top: paddingTopTitle,
   },
   headerText: {
     fontWeight: "bold",
@@ -42,7 +47,7 @@ const styles = StyleSheet.create({
   icons: {
     position: "absolute",
     left: 16,
-    top: 45
+    top: paddingTopIcon
   },
   headerImage: {
     width: 26,
