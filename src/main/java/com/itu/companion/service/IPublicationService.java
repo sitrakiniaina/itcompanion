@@ -9,6 +9,6 @@ public interface IPublicationService {
 
 	Optional<Publication> findById(Long id);
 	void deleteById(Long id);
-	Publication save(Publication promotion);
+	Publication save(Publication publication);
 	List<Publication> findAll();	
 }

@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.itu.companion.model.Promotion;
 import com.itu.companion.model.Publication;
 import com.itu.companion.repository.PublicationRepository;
 
+@Service
 public class PublicationService implements IPublicationService {
 
 	@Autowired

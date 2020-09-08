@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +17,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="publication")
@@ -39,11 +44,10 @@ public class Publication {
 	private Typepublication typepublication;
 	
 	
-	@ManyToMany
-	@JoinTable(
-	  name = "promotion_publication", 
-	  joinColumns = @JoinColumn(name = "idPromotion"), 
-	  inverseJoinColumns = @JoinColumn(name = "idPublication"))
+
+	
+	@ManyToMany(mappedBy = "publications", cascade = CascadeType.PERSIST)
+	@JsonManagedReference 
 	private Set<Promotion> promotions= new HashSet<>();
 	
 	@ManyToOne
@@ -155,10 +159,7 @@ public class Publication {
 		this.etat = etat;
 	}
 	
-	public void setPromotion(Promotion promotion) {
 	
-		this.promotions.forEach(x -> x.getPublications().add(this));
-	}
 	
 	
 	

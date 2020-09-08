@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 
@@ -32,9 +38,20 @@ public class Promotion {
 	private Date dateFin;
 	private String facebookid;
 	
-	@ManyToMany(mappedBy = "promotions")
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JsonBackReference
+	@JoinTable(
+	  name = "promotion_publication", 
+	  joinColumns = @JoinColumn(name = "idPublication"), 
+	  inverseJoinColumns = @JoinColumn(name = "idPromotion"))
 	private Set<Publication> publications = new HashSet<>();
 	
+	
+	
+	public Promotion() {
+		super();
+	}
+
 	public Promotion(Long id) {
 		super();
 		this.id = id;
@@ -87,6 +104,11 @@ public class Promotion {
 
 	public void setPublications(Set<Publication> publications) {
 		this.publications = publications;
+	}
+	
+	public void setPublication(Publication publication) {
+		this.publications.add(publication);	
+		publication.getPromotions().add(this);
 	}
 	
 	
