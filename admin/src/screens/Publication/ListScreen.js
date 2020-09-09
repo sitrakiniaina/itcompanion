@@ -26,6 +26,7 @@ import TextField from '@material-ui/core/TextField';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Pagination from '@material-ui/lab/Pagination';
 import TablePagination from '@material-ui/core/TablePagination';
+import PublicationService from '../../services/PublicationService';;
 
 const styles = theme => ({
     root: {
@@ -105,10 +106,12 @@ class ListScreen extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleChangeTypePublication = this.handleChangeTypePublication.bind(this);
         this.handleFilterButton = this.handleFilterButton.bind(this);
+        this.retrievePublications = this.retrievePublications.bind(this);
         this.state = {
             openModal: false,
             typepublication: "",
             showFilter: false,
+            publications : []
         };
     }
     createData(id, libelle, facebookid, facebooklibelle, datedebut, datefin) {
@@ -143,6 +146,22 @@ class ListScreen extends Component {
         });
     };
 
+    componentDidMount() {
+        this.retrievePublications()
+    }
+
+    retrievePublications() {
+        PublicationService.getAll()
+            .then(response => {
+                this.setState({
+                    publications: response.data
+                });
+                console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
     render() {
         const { classes } = this.props;
         const rows = [
@@ -201,7 +220,7 @@ class ListScreen extends Component {
         ]
         return (
             <main className={classes.root}>
-               
+
                 <Paper className={classes.paper}>
                     <Toolbar className={classes.toolbar}>
                         <Grid className={classes.toolbarHead}>
@@ -210,9 +229,7 @@ class ListScreen extends Component {
                             </Typography>
                             <Grid>
                                 <Tooltip title="Filter list">
-
                                     <Button
-                                        color="#88A8E4"
                                         className={classes.filterButton}
                                         variant="contained"
                                         onClick={this.handleFilterButton}
@@ -301,14 +318,15 @@ class ListScreen extends Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row) => (
-                                    <StyledTableRow key={row.name}>
+                                {this.state.publications.map((row) => (
+                                    row.promotions.map((promotion)=>(
+                                        <StyledTableRow key={row.id+"_"+promotion.id}>
                                         <TableCell >{row.id}</TableCell>
                                         <TableCell >
-                                            {row.libelle}
+                                            {row.titre}
                                         </TableCell>
-                                        <TableCell >{row.facebooklibelle}</TableCell>
-                                        <TableCell >{row.facebookid}</TableCell>
+                                        <TableCell >{promotion.libelle}</TableCell>
+                                        <TableCell >{promotion.facebookid}</TableCell>
                                         <TableCell align="right">{row.datedebut}</TableCell>
                                         <TableCell align="right">{row.datefin}</TableCell>
                                         <TableCell align="right">
@@ -316,6 +334,7 @@ class ListScreen extends Component {
                                             <CustomIconButton label="Supprimer" event={this.handleClickModal.bind(this, true)}></CustomIconButton>
                                         </TableCell>
                                     </StyledTableRow>
+                                    ))                                   
                                 ))}
                             </TableBody>
                         </Table>
@@ -327,8 +346,8 @@ class ListScreen extends Component {
                         count={4}
                         rowsPerPage={5}
                         page={1}
-                        // onChangePage={handleChangePage}
-                        // onChangeRowsPerPage={handleChangeRowsPerPage}
+                    // onChangePage={handleChangePage}
+                    // onChangeRowsPerPage={handleChangeRowsPerPage}
                     />
                 </Paper>
                 <CustomizedDialogs

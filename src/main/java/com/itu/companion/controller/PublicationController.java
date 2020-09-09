@@ -1,8 +1,12 @@
 package com.itu.companion.controller;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,19 +28,23 @@ public class PublicationController {
 	
 	private ObjectMapper om = new ObjectMapper();
 	
-	@RequestMapping("/api/savePublication")
-	public ResponseEntity<Object> savePublication(){
-		Publication publication = new Publication();
-		publication.setTitre("publication 1");
-		publication.setDescription("description");
-		publication.setLien("https://www.facebook.com/");
-		Promotion p1= promotionService.findById(1L);
-		p1.setPublication(publication);
-		Promotion p2= promotionService.findById(2L);
-		p2.setPublication(publication);
-	
+
+	@Transactional
+	@PostMapping("/api/publication/save")
+	public ResponseEntity<Object> savePublication(@RequestBody Publication publication) throws JsonProcessingException{	
+		
+		Publication temp = new Publication() ;
+		temp.getPromotions().clear();
+		for (Promotion promotion : publication.getPromotions()) {
+			temp.addPromotion(promotion);	
+		}
+		publication.getPromotions().clear();
+		for (Promotion prom : temp.getPromotions()) {
+			Promotion tempprom = promotionService.findById(prom.getId());
+			publication.addPromotion(tempprom);	
+		}
 		publicationService.save(publication);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(publication.getPromotions(),HttpStatus.OK);
 	}
 	
 	@RequestMapping("/api/savePromotion")
@@ -48,7 +56,7 @@ public class PublicationController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	} 
 	
-	@RequestMapping("/api/listPublication")
+	@RequestMapping("/api/publication")
 	public ResponseEntity<Object> listPublication() throws JsonProcessingException{
 		return new ResponseEntity<>(om.writeValueAsString(publicationService.findAll()) ,HttpStatus.OK);
 	}

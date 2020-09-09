@@ -18,36 +18,34 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name="promotion")
+@Table(name = "promotion")
+//@JsonIdentityInfo(
+//		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+//		  property = "id")
 public class Promotion {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "promotion_Sequence")
-    @SequenceGenerator(name = "promotion_Sequence", sequenceName = "PROMOTION_SEQ")
-	@Column(name="idPromotion")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "promotion_Sequence")
+	@SequenceGenerator(name = "promotion_Sequence", sequenceName = "PROMOTION_SEQ")
+	@Column(name = "idPromotion")
 	private Long id;
-	
+
 	private String libelle;
 	private Date dateDebut;
 	private Date dateFin;
 	private String facebookid;
-	
-	@ManyToMany(cascade = CascadeType.PERSIST)
+
+	@ManyToMany(mappedBy = "promotions", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("publications")
 	@JsonBackReference
-	@JoinTable(
-	  name = "promotion_publication", 
-	  joinColumns = @JoinColumn(name = "idPublication"), 
-	  inverseJoinColumns = @JoinColumn(name = "idPromotion"))
 	private Set<Publication> publications = new HashSet<>();
-	
-	
-	
+
 	public Promotion() {
 		super();
 	}
@@ -56,7 +54,7 @@ public class Promotion {
 		super();
 		this.id = id;
 	}
-	
+
 	public String getLibelle() {
 		return libelle;
 	}
@@ -81,8 +79,6 @@ public class Promotion {
 		this.dateFin = dateFin;
 	}
 
-	
-
 	public String getFacebookid() {
 		return facebookid;
 	}
@@ -94,6 +90,7 @@ public class Promotion {
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -105,13 +102,13 @@ public class Promotion {
 	public void setPublications(Set<Publication> publications) {
 		this.publications = publications;
 	}
-	
-	public void setPublication(Publication publication) {
-		this.publications.add(publication);	
-		publication.getPromotions().add(this);
+
+	public void addPublication(Publication publication) {
+		if (!publications.contains(publication)) {
+			publications.add(publication);
+			publication.addPromotion(this);
+
+		}
 	}
-	
-	
-	
-	
+
 }

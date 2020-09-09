@@ -19,10 +19,15 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="publication")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+//property = "id")
 public class Publication {
 
 	@Id
@@ -44,10 +49,13 @@ public class Publication {
 	private Typepublication typepublication;
 	
 	
-
-	
-	@ManyToMany(mappedBy = "publications", cascade = CascadeType.PERSIST)
-	@JsonManagedReference 
+ 
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinTable(
+	  name = "promotion_publication", 
+	  joinColumns = @JoinColumn(name = "id_publication"), 
+	  inverseJoinColumns = @JoinColumn(name = "id_promotion"))
+	@JsonIgnoreProperties("publications")
 	private Set<Promotion> promotions= new HashSet<>();
 	
 	@ManyToOne
@@ -157,6 +165,14 @@ public class Publication {
 
 	public void setEtat(Etat etat) {
 		this.etat = etat;
+	}
+	
+	public void addPromotion(Promotion promotion) {
+		
+		if(!promotions.contains(promotion)) {		
+			promotions.add(promotion);		
+			promotion.addPublication(this);
+		}		
 	}
 	
 	

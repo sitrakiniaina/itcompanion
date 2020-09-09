@@ -3,6 +3,8 @@ package com.itu.companion.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +29,10 @@ public class PublicationService implements IPublicationService {
 	}
 
 	@Override
-	public Publication save(Publication promotion) {
-		return repository.save(promotion);
+	@Transactional
+	public Publication save(Publication publication) {
+
+		return repository.save(publication);
 	}
 
 	@Override
