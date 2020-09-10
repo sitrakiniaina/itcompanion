@@ -111,7 +111,7 @@ class ListScreen extends Component {
             openModal: false,
             typepublication: "",
             showFilter: false,
-            publications : []
+            publications: []
         };
     }
     createData(id, libelle, facebookid, facebooklibelle, datedebut, datefin) {
@@ -319,22 +319,22 @@ class ListScreen extends Component {
                             </TableHead>
                             <TableBody>
                                 {this.state.publications.map((row) => (
-                                    row.promotions.map((promotion)=>(
-                                        <StyledTableRow key={row.id+"_"+promotion.id}>
-                                        <TableCell >{row.id}</TableCell>
-                                        <TableCell >
-                                            {row.titre}
-                                        </TableCell>
-                                        <TableCell >{promotion.libelle}</TableCell>
-                                        <TableCell >{promotion.facebookid}</TableCell>
-                                        <TableCell align="right">{row.datedebut}</TableCell>
-                                        <TableCell align="right">{row.datefin}</TableCell>
-                                        <TableCell align="right">
-                                            <CustomIconButton label="Editer" event={this.handleEditButton.bind(this)}></CustomIconButton>
-                                            <CustomIconButton label="Supprimer" event={this.handleClickModal.bind(this, true)}></CustomIconButton>
-                                        </TableCell>
-                                    </StyledTableRow>
-                                    ))                                   
+                                    row.promotions.map((promotion) => (
+                                        <StyledTableRow key={row.id + "_" + promotion.id}>
+                                            <TableCell >{row.id}</TableCell>
+                                            <TableCell >
+                                                {row.titre}
+                                            </TableCell>
+                                            <TableCell >{promotion.libelle}</TableCell>
+                                            <TableCell >{promotion.facebookid}</TableCell>
+                                            <TableCell align="right">{row.dateDebut}</TableCell>
+                                            <TableCell align="right">{row.dateFin}</TableCell>
+                                            <TableCell align="right">
+                                                <CustomIconButton label="Editer" event={this.handleEditButton.bind(this)}></CustomIconButton>
+                                                <CustomIconButton label="Supprimer" event={this.handleClickModal.bind(this, true)}></CustomIconButton>
+                                            </TableCell>
+                                        </StyledTableRow>
+                                    ))
                                 ))}
                             </TableBody>
                         </Table>

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.context.annotation.Bean;
 import org.springframework.social.facebook.api.Post;
 import com.itu.companion.api.ApiBinding;
+import com.itu.companion.model.Publication;
 import com.itu.companion.security.oauth2.user.FacebookOAuth2UserInfo;
 
 
@@ -31,7 +32,7 @@ public class Facebook extends ApiBinding{
 		 return restTemplate.getForObject(GRAPH_API_BASE_URL + "/321046339120059/feed", Map.class);
 	}
 	
-	public String postFeed(String message, String link) {
+	public String postFeed(Publication publication) {
 
 		return "";
 	}
