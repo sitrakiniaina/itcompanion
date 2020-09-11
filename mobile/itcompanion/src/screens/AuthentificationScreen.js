@@ -43,10 +43,10 @@ class AuthentificationScreen extends Component {
                             <KeyboardAvoidingView enabled>
                                 <View style={{ alignItems: 'center' }}>
                                     <Image
-                                        source={require("../assets/images/itcompanion.jpg")}
+                                        source={require("../assets/images/ITC-logo.png")}
                                         style={{
-                                            width: '50%',
-                                            height: 100,
+                                            width: '70%',
+                                            height: 175,
                                             resizeMode: 'contain',
                                             margin: 30,
                                         }}
@@ -83,21 +83,29 @@ class AuthentificationScreen extends Component {
                                 <TouchableOpacity
                                     style={styles.buttonStyle}
                                     activeOpacity={0.5}
-                                    onPress={() => this.props.navigation.navigate('App')}>
-                                    <Text style={styles.buttonTextStyle}>LOGIN</Text>
+                                    onPress={() => this.props.navigation.navigate('App')}>                                   
+                                    <Text style={styles.buttonConnectTextStyle}>SE CONNECTER</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={styles.facebookbuttonStyle}
                                     activeOpacity={0.5}
                                     onPress={() => this.props.navigation.navigate('App')}>
-                                    
-                                    <Text style={styles.buttonTextStyle}>LOGIN WITH FACEBOOK</Text>
+                                     <Image 
+                                        source={require("../assets/images/fb-logo.png")}
+                                        style={styles.iconBtn}
+                                    />                         
+                                    <Text style={styles.buttonTextStyle}> SE CONNECTER AVEC FACEBOOK</Text>                                   
                                 </TouchableOpacity>
-                                <Text
-                                    style={styles.registerTextStyle}
+                                <TouchableOpacity
+                                    style={styles.googlebuttonStyle}
+                                    activeOpacity={0.5}
                                     onPress={() => this.props.navigation.navigate('App')}>
-                                    New Here ? Register
-                                </Text>
+                                    <Image 
+                                        source={require("../assets/images/google-logo.png")}
+                                        style={styles.iconBtn}
+                                    />      
+                                    <Text style={styles.buttonTextStyle}>SE CONNECTER AVEC GOOGLE</Text>
+                                </TouchableOpacity>
                             </KeyboardAvoidingView>
                         </View>
                     </ScrollView>
@@ -127,29 +135,71 @@ const styles = {
         borderColor: '#7DE24E',
         height: 40,
         alignItems: 'center',
-        borderRadius: 30,
+        borderRadius: 20,
         marginLeft: 35,
         marginRight: 35,
         marginTop: 20,
         marginBottom: 20,
+        justifyContent: 'center',
+    },
+    iconBtn: {
+        resizeMode: 'contain',
+        height: 20,
+        width: 15,
+        flex: .2,
+        marginBottom: 5
     },
     facebookbuttonStyle: {
-        backgroundColor: '#303f9f',
+        backgroundColor: '#3b5998',
         borderWidth: 0,
         color: '#FFFFFF',
         borderColor: '#7DE24E',
         height: 40,
         alignItems: 'center',
-        borderRadius: 30,
+        borderRadius: 20,
         marginLeft: 35,
         marginRight: 35,
         marginTop: 20,
         marginBottom: 20,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    googlebuttonStyle: {
+        backgroundColor: '#d6492e',
+        borderWidth: 0,
+        color: '#d93025',
+        borderColor: '#7DE24E', 
+        height: 40,
+        alignItems: 'center',
+        borderRadius: 20,
+        marginLeft: 35,
+        marginRight: 35,
+        marginTop: 20,
+        marginBottom: 20,
+        justifyContent: 'center',
+        flexDirection: 'row'
+    },
+    buttonConnectTextStyle: {
+        color: '#FFFFFF',
+        fontSize: 13,
+        textAlign: 'center',
+        fontWeight: 'bold'
     },
     buttonTextStyle: {
         color: '#FFFFFF',
-        paddingVertical: 10,
-        fontSize: 16,
+        fontSize: 13,
+        flex: .8,
+        textAlign: 'center',
+        marginRight: '10%',
+        fontWeight: 'bold'
+    },
+    googleTextStyle: {
+        color: '#d93025',
+        fontSize: 13,
+        flex: .8,
+        textAlign: 'center',
+        marginRight: '10%',
+        fontWeight: 'bold'
     },
     inputStyle: {
         flex: 1,
