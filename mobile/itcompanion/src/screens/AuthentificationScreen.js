@@ -14,6 +14,8 @@ import {
     Colors
 } from 'react-native/Libraries/NewAppScreen';
 import PropTypes from 'prop-types';
+import EtuModal from '../components/EtuModal';
+
 class AuthentificationScreen extends Component {
     constructor(props) {
         super(props);
@@ -21,8 +23,8 @@ class AuthentificationScreen extends Component {
             evenements: [],
             currentEvenement: null,
             currentIndex: -1,
-            classes: ""
-            // searchTitle: ""
+            classes: "",
+            studentToken: ""
         };
     }
     componentDidMount() {
@@ -109,6 +111,7 @@ class AuthentificationScreen extends Component {
                             </KeyboardAvoidingView>
                         </View>
                     </ScrollView>
+                    <EtuModal studentToken={this.state.studentToken}></EtuModal>
                 </View>
             </>
         );
