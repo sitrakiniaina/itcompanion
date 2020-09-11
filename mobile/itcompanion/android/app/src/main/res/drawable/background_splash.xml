@@ -5,9 +5,9 @@
         android:drawable="@color/splashscreen_bg"/>
 
     <item
-        android:width="300dp"
-        android:height="300dp"
-        android:drawable="@mipmap/salt_bae"
-        android:gravity="center" />
+        android:drawable="@mipmap/it_splash"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
 
 </layer-list>
