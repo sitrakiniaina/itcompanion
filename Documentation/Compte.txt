@@ -1,0 +1,17 @@
+nom : IT
+prenom : Companion
+username : it.university.companion@gmail.com
+password : itcompanion
+fb : itcompanion1996
+naissance : 31/03/1996
+
+facebookdev
+it.university.companion@gmail.com
+itcompanion1996
+rgpd :Itcompanion1996
+nomApp : itcompanion
+appID : 660543941234747
+scope: user_posts
+EAAJYwt750DsBAHZB0tjb2b7JV4AKnmYwlRYrCkMJ4rHFsWFhevcZBpJZBBYWfiZAINECWagqExRMfPToPvoFiI1kWpGtuSJUIxh0NjmiZADgqc5JyoKPIGEjRV0SSXknA1FS6C33HDX2QcTRyg8Ry3IF8EXTzXY3ZAhzZBEZCEKxu0X2QrEV7oWaQuJywecT7ZBB3ajAvH5n8INYVilVYswmCzrwlMF94RZCWhLS7CaKFt77F2ZBopGovvyBbpf4JotZAZC4ZD
+
+https://www.freeprivacypolicy.com/live/a6c88a12-3230-453b-9eb1-5f4ced0db5f7

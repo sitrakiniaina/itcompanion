@@ -98,10 +98,10 @@ export default function AppDrawer(props) {
       })
     },
     {
-      text: "Evenement",
+      text: "Publication",
       icon: <ListIcon />,
       onClick: (() => {
-        history.push("/evenement");
+        history.push("/publication");
         setSelectedIndex(1);
       })
     },

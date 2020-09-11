@@ -1,5 +1,6 @@
 package com.itu.companion.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,8 @@ public class Matiere {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "matiere_Sequence")
     @SequenceGenerator(name = "matiere_Sequence", sequenceName = "MATIERE_SEQ")
-	private Long idMatiere;
+	@Column(name="idMatiere")
+	private Long id;
 	private String code;
 	private String libelle;
 	private int coefficient;
@@ -25,25 +27,17 @@ public class Matiere {
 		super();
 	}
 
-	public Matiere(Long idMatiere, String code, String libelle, int coefficient) {
-		super();
-		this.idMatiere = idMatiere;
-		this.code = code;
-		this.libelle = libelle;
-		this.coefficient = coefficient;
-	}
 	
-	public Matiere(Long idMatiere) {
-		super();
-		this.idMatiere = idMatiere;
+	public Long getId() {
+		return id;
 	}
 
-	public Long getIdMatiere() {
-		return idMatiere;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public void setIdMatiere(Long idMatiere) {
-		this.idMatiere = idMatiere;
-	}
+
+
 	public String getCode() {
 		return code;
 	}
