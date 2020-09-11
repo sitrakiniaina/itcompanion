@@ -226,6 +226,7 @@ class CreateScreen extends Component {
                                     type="text"
                                     value={publication.titre}
                                     onChange={this.handleTitre}
+                                    variant="filled"
                                 />
                             </FormControl>
                             <FormControl fullWidth className={classes.margin}>
@@ -235,6 +236,7 @@ class CreateScreen extends Component {
                                     name="typepublication"
                                     onChange={this.handleType}
                                     value={publication.typepublication.id}
+                                 
                                 >
                                     {types.map((option, i) => (
                                         <MenuItem key={i} value={option.id}>{option.libelle}</MenuItem>
@@ -253,7 +255,7 @@ class CreateScreen extends Component {
                                         name="date-debut"
                                         value={publication.dateDebut}
                                         onChange={(event, value) => this.handleDateDebut(value)}
-
+                                       
                                     />
                                 </FormControl>
                                 <FormControl className={classes.margin}>
@@ -302,6 +304,7 @@ class CreateScreen extends Component {
                                 rows={4}
                                 value={publication.description}
                                 onChange={this.handleDescription}
+                                variant="filled"
                             />
 
                             <FormControl fullWidth className={classes.margin}>
@@ -341,7 +344,7 @@ class CreateScreen extends Component {
                                     onClick={this.handleSubmitButton}
                                     startIcon={<SaveIcon />}
                                 >
-                                    Ajouter
+                                    Sauvegarder
                             </Button>
                             </Grid>
                         </Grid>
