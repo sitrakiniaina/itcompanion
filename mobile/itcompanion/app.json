@@ -1,4 +1,12 @@
 {
   "name": "itcompanion",
-  "displayName": "itcompanion"
+  "displayName": "itcompanion",
+  "ios": {
+    "image": "./src/assets/images/salt-bae.jpg",
+    "resizeMe": "cover"
+  },
+  "android": {
+    "image": "./src/assets/images/salt-bae.jpg",
+    "resizeMe": "cover"
+  }
 }
