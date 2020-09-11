@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import AppDrawer from './AppDrawer';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 const drawerWidth = 240;
 const styles = theme => ({
     root: {
@@ -59,7 +60,7 @@ class ApplicationBar extends Component {
             open: true
         });
     };
-    handleDrawerClose(){
+    handleDrawerClose() {
         this.setState({
             open: false
         });
@@ -70,14 +71,14 @@ class ApplicationBar extends Component {
         const { open } = this.state;
         return (
             <>
-            <style>
-                {`
+                <style>
+                    {`
                     .makeStyles-toolbar-12 {
                         background: url("https://www.oio.mg/media/100x100/uploads/images/school/logo/183ba157b0_29_1551075016.jpeg") no-repeat center center;
                         background-size: contain;
                     }
                 `}
-            </style>
+                </style>
                 <AppBar
                     position="fixed"
                     className={clsx(classes.appBar, {
@@ -98,7 +99,18 @@ class ApplicationBar extends Component {
                         </IconButton>
                         <Typography variant="h6" noWrap>
                             IT Companion
-                    </Typography>
+                        </Typography>
+                        {/* <div>
+                            <IconButton
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                        </div> */}
                     </Toolbar>
                 </AppBar>
                 <AppDrawer openDrawer={open} close={this.handleDrawerClose.bind(this)}></AppDrawer>

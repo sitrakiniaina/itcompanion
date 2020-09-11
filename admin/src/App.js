@@ -12,6 +12,9 @@ import UpdatePromotion from './screens/Promotion/DetailsScreen';
 import Etudiant from './screens/Etudiant/ListScreen';
 import CreateEtudiant from './screens/Etudiant/CreateScreen';
 import UpdateEtutiant from './screens/Etudiant/DetailsScreen';
+import Publication from './screens/Publication/ListScreen';
+import CreatePublication from './screens/Publication/CreateScreen';
+
 function App() {
   return (
     <div className="App">
@@ -26,6 +29,9 @@ function App() {
         <Route exact path="/etudiant" component={Etudiant}></Route>   
         <Route exact path="/etudiant/create" component={CreateEtudiant}></Route>    
         <Route exact path="/etudiant/update" component={UpdateEtutiant}></Route>  
+        <Route exact path="/publication" component={Publication}></Route>   
+        <Route exact path="/publication/create" component={CreatePublication}></Route>    
+
       </Router>
     </div>
   );

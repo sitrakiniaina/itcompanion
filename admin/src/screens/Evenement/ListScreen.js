@@ -12,8 +12,15 @@ import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import history from '../../history';
+import { CustomizedDialogs } from '../../components/CustomizedDialogs';
 import CustomTableHead from '../baseScreen/CustomTableHead';
 import { createHeader } from '../../utilitaire/utilitaire';
+import CustomIconButton from '../baseScreen/CustomIconButton';
+import { LABEL_SUPPRIMER } from '../../utilitaire/constante';
 
 const styles = theme => ({
     root: {
@@ -26,7 +33,7 @@ const styles = theme => ({
         paddingRight: theme.spacing(1),
     },
     toolbartitle: {
-        flex: '1',
+        // flex: '1',
     },
     paper: {
         width: '100%',
@@ -54,38 +61,75 @@ class ListScreen extends Component {
     constructor(props) {
         super(props);
         this.createData = this.createData.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.state ={
+            openModal : false
+        };
     }
-    createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
-    }   
+    createData(id,libelle, facebookid, facebooklibelle, datedebut, datefin) {
+        return { id, libelle, facebookid, facebooklibelle, datedebut,datefin };
+    }
+    handleClick(event) {
+        event.preventDefault();
+        console.info('You clicked a breadcrumb.');
+    }
+
+    handleAddButton() {
+        history.push("/promotion/create");
+    }
+    handleEditButton() {
+        history.push("/promotion/update");
+    }
+    
+    handleClickModal(open){
+        this.setState({
+            openModal : open
+        });
+    }
 
     render() {
         const { classes } = this.props;
         const rows = [
-            this.createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-            this.createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-            this.createData('Eclair', 262, 16.0, 24, 6.0),
-            this.createData('Cupcake', 305, 3.7, 67, 4.3),
-            this.createData('Gingerbread', 356, 16.0, 49, 3.9),
+            this.createData('1','Promotion 1', "1159520490900274","ITU Prom1", "20-08-2017", "20-08-2017"),
+            this.createData('2','Promotion 2', "1159520490900274","ITU Prom2", "20-08-2017", "20-08-2017"),
+            this.createData('4','Promotion 4', "1159520490900274","ITU Prom4", "20-08-2017", "20-08-2017"),
+            this.createData('5','Promotion 5', "1159520490900274","ITU Prom5", "20-08-2017", "20-08-2017"),
+            this.createData('6','Promotion 6', "1159520490900274","ITU Prom6", "20-08-2017", "20-08-2017"),
+            this.createData('7','Promotion 7', "1159520490900274","ITU Prom7", "20-08-2017", "20-08-2017"),
+            this.createData('8','Promotion 8', "1159520490900274","ITU Prom8", "20-08-2017", "20-08-2017"),
         ];
-        //arg 1 : libelle , arg 2 : text-align
+
         const headers = [
-            createHeader('Titre', 'justify'),
-            createHeader('Date', 'right'),
-            createHeader('Type', 'right')
+            createHeader('ID', 'justify'),
+            createHeader('Libelle', 'justify'),          
+            createHeader('Facebook Libelle', 'justify'),
+            createHeader('Facebook ID', 'justify'),
+            createHeader('Date début', 'right'),
+            createHeader('Date fin', 'right'),
+            createHeader('', 'center')
         ]
         return (
             <main className={classes.root}>
+                <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
+                    <Link color="inherit" href="/" onClick={this.handleClick}>
+                        Material-UI
+                     </Link>
+                    <Link color="inherit" href="/getting-started/installation/" onClick={this.handleClick}>
+                        Core
+                    </Link>
+                    <Typography color="textPrimary">Breadcrumb</Typography>
+                </Breadcrumbs>
                 <Paper className={classes.paper}>
                     <Toolbar className={classes.toolbar}>
                         <Typography className={classes.toolbartitle} variant="h5" id="tableTitle" component="div">
-                        Evènement
+                            Liste promotions
                         </Typography>
                         <Tooltip title="Filter list" className={classes.toolbarbutton}>
                             <Button
                                 variant="contained"
                                 color="primary"
                                 className={classes.button}
+                                onClick={this.handleAddButton.bind(this)}
                                 startIcon={<AddIcon />}
                             >
                                 Ajouter
@@ -102,18 +146,32 @@ class ListScreen extends Component {
                             <TableBody>
                                 {rows.map((row) => (
                                     <StyledTableRow key={row.name}>
-                                        <TableCell component="th" scope="row">
-                                            {row.name}
+                                        <TableCell >{row.id}</TableCell>
+                                        <TableCell >
+                                            {row.libelle}
                                         </TableCell>
-                                        <TableCell align="right">{row.calories}</TableCell>
-                                        <TableCell align="right">{row.fat}</TableCell>
-                                        
+                                        <TableCell >{row.facebooklibelle}</TableCell>
+                                        <TableCell >{row.facebookid}</TableCell>
+                                        <TableCell align="right">{row.datedebut}</TableCell>
+                                        <TableCell align="right">{row.datefin}</TableCell>
+                                        <TableCell align="right">
+                                            <CustomIconButton label="Editer" event={this.handleEditButton.bind(this)}></CustomIconButton>
+                                            <CustomIconButton label="Supprimer" event={this.handleClickModal.bind(this,true)}></CustomIconButton>
+                                        </TableCell>
                                     </StyledTableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
                 </Paper>
+                <CustomizedDialogs
+                    open={this.state.openModal}
+                    title="Supprimer"
+                    mode={LABEL_SUPPRIMER}
+                    description="Voulez vous vraiment supprimer?"
+                    close = {this.handleClickModal.bind(this,false)}
+                    action = {this.handleAddButton.bind(this)}
+                />
 
             </main>
         );
