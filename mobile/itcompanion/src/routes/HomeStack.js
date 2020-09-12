@@ -6,19 +6,6 @@ import Calendrier from '../screens/Calendrier/CalendrierScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { DrawerActions } from '@react-navigation/native';
 import Map from '../screens/Map/MapScreen'
-
-// const HomeStack = createStackNavigator({
-//   HomeScreen: {
-//     screen: Home,
-//     navigationOptions: ({ navigation }) => {
-//       return {
-//         header: () => (
-//           <Header title="Home" hasBackButton={false} navigation={navigation} />
-//         )
-//       };
-//     }
-//   }
-// });
 const Stack = createStackNavigator();
 export default function HomeStack() {
   return (
@@ -28,7 +15,7 @@ export default function HomeStack() {
         component={Home}
         options={({ navigation }) => ({
           header: () => (
-            <Header title="Actualités" hasBackButton={true} navigation={navigation} />
+            <Header title="Actualités" hasBackButton={false} navigation={navigation} />
           )
         })}
       />
