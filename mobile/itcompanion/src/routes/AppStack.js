@@ -29,6 +29,12 @@ export default function AppStack() {
                         size={23}
                         name={Platform.OS === 'android' ? 'business' : 'business'}></Icon>
                 }} />
+            <Drawer.Screen name="Profile" component={CariereStack}
+                options={{
+                    drawerIcon: config => <Icon
+                        size={24}
+                        name={Platform.OS === 'android' ? 'person-circle' : 'person-circle'}></Icon>
+                }} />
         </Drawer.Navigator>
     );
 }
