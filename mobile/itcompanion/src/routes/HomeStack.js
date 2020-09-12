@@ -15,7 +15,7 @@ export default function HomeStack() {
         component={Home}
         options={({ navigation }) => ({
           header: () => (
-            <Header title="Actualités" hasBackButton={false} navigation={navigation} />
+            <Header title="Accueil" hasBackButton={false} navigation={navigation} />
           )
         })}
       />

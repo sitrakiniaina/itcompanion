@@ -29,11 +29,20 @@ export default function DescriptionScreen() {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <Header />
+         
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>DescriptionScreen</Text>
-              <Text style={styles.sectionDescription}>             
+              <Text style={styles.sectionTitle}>L'AVENIR N'A PAS DE PRIX</Text>
+              <Text style={styles.sectionDescription}>    
+              IT University
+Diplômes habilités par l’Enseignement Supérieur – Système LMD
+IT University est un établissement d’enseignement supérieur privé spécialisé en informatique, créé en 2011, pour répondre aux  besoins du secteur professionnel en matière de nouvelles technologies.
+IT University adopte le système LMD et offre actuellement une formation de 3ans après le BAC, dans les modules suivants :
+
+Licence spécialisée en développement d’applications (Programmation)
+Licence spécialisée en Base de données et Réseaux
+Licence spécialisée  en Web Intégration et Web designer
+Après ce programme , tous les sortants d’IT University seront  tout de suite opérationnels, IT University met surtout en exergue la base mathématique dans son programme, afin de permettre aux étudiants d’avoir un bon niveau de raisonnement  et  de continuer leurs études en master et en doctorat.         
               </Text>
             </View>
           

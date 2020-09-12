@@ -14,6 +14,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Linking
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 export default function HomeScreen({navigation}) {
@@ -85,9 +86,10 @@ export default function HomeScreen({navigation}) {
             <View style={styles.box_100}>
               <TouchableOpacity
                 style={styles.inner_large}
-                onPress={() => navigation.navigate('Calendrier')}>
-                <Ionicons name="location" size={50} color="white" />
-                <Text style={styles.sectionTitle}>ME REPERER</Text>
+                onPress={() =>Linking.openURL('https://www.facebook.com/IT-University-149992451733737/')}>
+                <Ionicons name="logo-facebook" size={50} color="white" />
+               
+                <Text style={styles.sectionTitle}>NOUS SUIVRE</Text>
               </TouchableOpacity>
             </View>
           </View>
