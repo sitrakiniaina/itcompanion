@@ -5,6 +5,7 @@ import Home from '../screens/HomeScreen';
 import Calendrier from '../screens/Calendrier/CalendrierScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { DrawerActions } from '@react-navigation/native';
+import Map from '../screens/Map/MapScreen'
 
 // const HomeStack = createStackNavigator({
 //   HomeScreen: {
@@ -37,6 +38,15 @@ export default function HomeStack() {
         options={({ navigation }) => ({
           header: () => (
             <Header title="Calendrier" hasBackButton={true} navigation={navigation} />
+          )
+        })}
+      />
+      <Stack.Screen
+        name="Map"
+        component={Map}
+        options={({ navigation }) => ({
+          header: () => (
+            <Header title="Map" hasBackButton={true} navigation={navigation} />
           )
         })}
       />
