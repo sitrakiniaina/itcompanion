@@ -21,8 +21,8 @@ export default class MapScreen extends React.Component {
                 longitude: 0.0,
             },
             destination: {
-                latitude: 0.0,
-                longitude: 0.0,
+                latitude: Location.latitude,
+                longitude: Location.longitude,
             },
             initialRegion: {
                 latitude: 0,
@@ -57,27 +57,33 @@ export default class MapScreen extends React.Component {
         }
     }
     initRoute(origin, destination) {
-        let pointOrigin = this.createPoint(origin);
-        let pointDestination = this.createPoint(destination);
-        getDirectionOpenRoute(pointOrigin, pointDestination).then(request => {
-            if (typeof request.data.features[0].geometry.coordinates != 'undefined') {
-                let coords = request.data.features[0].geometry.coordinates;
-                let routes = coords.map((point, indice) => {
-                    return {
-                        latitude: point[1],
-                        longitude: point[0]
-                    }
-                })
-                this.setState({
-                    routes: routes,
-                })
-            }
-        });
+        console.log(destination);
+        if (origin && destination) {
+            let pointOrigin = this.createPoint(origin);
+            let pointDestination = this.createPoint(destination);
+            getDirectionOpenRoute(pointOrigin, pointDestination).then(request => {
+                console.log(request.data);
+                if (!request.data.error) {
+                    let coords = request.data.features[0].geometry.coordinates;
+                    let routes = coords.map((point, indice) => {
+                        return {
+                            latitude: point[1],
+                            longitude: point[0]
+                        }
+                    })
+                    this.setState({
+                        routes: routes,
+                    })
+                }else{
+                    alert(request.data.error.message);
+                }
+            });
+        }
+
     }
     componentDidMount() {
         this.requestPermissions();
         Geolocation.getCurrentPosition(position => {
-
             this.setState({
                 origin: {
                     latitude: Number(position.coords.latitude),
@@ -104,8 +110,8 @@ export default class MapScreen extends React.Component {
                 <MapView
                     style={styles.map}
                     initialRegion={{
-                        latitude: -20.2693975,
-                        longitude: 57.4885235,
+                        latitude: this.state.origin.latitude,
+                        longitude: this.state.origin.longitude,
                         latitudeDelta: 0.03815,
                         longitudeDelta: 0.03935,
                     }}
