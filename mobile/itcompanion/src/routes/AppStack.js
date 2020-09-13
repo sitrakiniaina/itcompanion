@@ -15,19 +15,25 @@ export default function AppStack() {
                 options={{
                     drawerIcon: config => <Icon
                         size={23}
-                        name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}></Icon>
+                        name={Platform.OS === 'android' ? 'home' : 'home'}></Icon>
                 }} />
-            <Drawer.Screen name="Description" component={DescriptionStack}
+            <Drawer.Screen name="A propos" component={DescriptionStack}
                 options={{
                     drawerIcon: config => <Icon
                         size={23}
-                        name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}></Icon>
+                        name={Platform.OS === 'android' ? 'information-circle' : 'information-circle'}></Icon>
                 }} />
             <Drawer.Screen name="Carière" component={CariereStack}
                 options={{
                     drawerIcon: config => <Icon
                         size={23}
-                        name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}></Icon>
+                        name={Platform.OS === 'android' ? 'business' : 'business'}></Icon>
+                }} />
+            <Drawer.Screen name="Profile" component={CariereStack}
+                options={{
+                    drawerIcon: config => <Icon
+                        size={24}
+                        name={Platform.OS === 'android' ? 'person-circle' : 'person-circle'}></Icon>
                 }} />
         </Drawer.Navigator>
     );

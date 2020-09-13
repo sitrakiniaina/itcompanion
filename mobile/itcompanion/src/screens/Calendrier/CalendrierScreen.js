@@ -1,100 +1,67 @@
-import React, {Component} from 'react';
-import {Alert, StyleSheet, Text, View, TouchableOpacity,Typography} from 'react-native';
-import {Agenda} from 'react-native-calendars';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-
-// const testIDs = require('../testIDs');
-
-
+import React, { Component } from 'react';
+import { Alert, StyleSheet, Text, View, TouchableOpacity, Typography, ScrollView } from 'react-native';
+import { Agenda, Calendar } from 'react-native-calendars';
+import { Button, Card, Title, Paragraph, Divider } from 'react-native-paper';
+import { ListItem, Avatar, Icon } from 'react-native-elements'
+import data from '../../mock/data.js';
 export default class CalendrierScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      items: {}
+      items: {},
+      dateSelected: '',
     };
   }
 
+  navigateToDetailsPage(){
+    this.props.navigation.navigate("CalendrierDetails");
+  }
+
+  onDayPress = (day) => {
+    this.setState({
+      dateSelected: {
+        [day.dateString]: {
+          selected: true, color: '#307ecc', selectedColor: '#466A8F'}
+      }
+    });
+    console.log(this.state.dateSelected);
+  }
   render() {
     return (
-      <Agenda
-        // testID={testIDs.agenda.CONTAINER}
-        items={this.state.items}
-        loadItemsForMonth={this.loadItems.bind(this)}
-        selected={this.dateTimeToString.bind(this)}
-        renderItem={this.renderItem.bind(this)}
-        renderEmptyDate={this.renderEmptyDate.bind(this)}
-        rowHasChanged={this.rowHasChanged.bind(this)}
-        // markingType={'period'}
-        // markedDates={{
-        //    '2017-05-08': {textColor: '#43515c'},
-        //    '2017-05-09': {textColor: '#43515c'},
-        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-        //    '2017-05-21': {startingDay: true, color: 'blue'},
-        //    '2017-05-22': {endingDay: true, color: 'gray'},
-        //    '2017-05-24': {startingDay: true, color: 'gray'},
-        //    '2017-05-25': {color: 'gray'},
-        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-        // monthFormat={'yyyy'}
-        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
-        // hideExtraDays={false}
-      />
+      <>
+        <Calendar
+          style={[
+            styles.calendar,
+            {
+              borderRadius: 5,
+              borderBottomWidth: 1,
+              borderBottomColor: 'lightgrey',
+              marginBottom: 3,
+            },
+          ]}
+          onDayPress={this.onDayPress}
+          // Collection of dates that have to be colored in a special way. Default = {}
+          markedDates={this.state.dateSelected}
+          // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
+          markingType={'simple'}
+
+        />
+        <ScrollView>
+          {list.map((l, i) => (
+            <ListItem key={i} bottomDivider onPress={this.navigateToDetailsPage.bind(this)}>
+              <Icon name={"av-timer"} color='red'/>
+              <ListItem.Content>
+                <ListItem.Title>{"." + l.name}</ListItem.Title>
+                <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+              </ListItem.Content>
+              <ListItem.Chevron size={30} color='#466A8F'
+                onPress={this.navigateToDetailsPage.bind(this)}   />
+            </ListItem>
+          ))}
+        </ScrollView>
+      </>
     );
-  }
-
-  loadItems(day) {
-    setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = this.timeToString(time);
-        if (!this.state.items[strTime]) {
-          this.state.items[strTime] = [];
-          const numItems = Math.floor(Math.random() * 3 + 1);
-          for (let j = 0; j < numItems; j++) {
-            this.state.items[strTime].push({
-              name: 'Item for ' + strTime + ' #' + j,
-              height: Math.max(50, Math.floor(Math.random() * 150))
-            });
-          }
-        }
-      }
-      const newItems = {};
-      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-      this.setState({
-        items: newItems
-      });
-    }, 1000);
-  }
-
-  renderItem(item) {
-    return (
-      <TouchableOpacity
-        //testID={testIDs.agenda.ITEM}
-        style={[styles.item, {height: item.height}]} 
-        onPress={() => Alert.alert(item.name)}
-      >
-          <Card>
-              <Card.Content>
-                  <View>
-                      <Text>{item.name}</Text>
-                  </View>
-              </Card.Content>
-          </Card>
-      </TouchableOpacity>
-    );
-  }
-
-  renderEmptyDate() {
-    return (
-      <View style={styles.emptyDate}>
-        <Text>This is empty date!</Text>
-      </View>
-    );
-  }
-
-  rowHasChanged(r1, r2) {
-    return r1.name !== r2.name;
   }
 
   timeToString(time) {
@@ -102,12 +69,77 @@ export default class CalendrierScreen extends Component {
     return date.toISOString().split('T')[0];
   }
 
-  dateTimeToString(){
-    const date = Date.now();
-    return date.toISOString().split('T')[0];
-  }
-}
 
+}
+const list = [
+  {
+    id : 1,
+    name: 'Examen mathematique',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    subtitle: '17:00 - 19:00 Connecting to the development server...'
+  },
+  {
+    id : 2,
+    name: 'Chris Jackson',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    subtitle: 'Vice Chairman'
+  },
+  {
+    id : 3,
+    name: 'Amy Farha',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    subtitle: 'Vice President'
+  },
+  {
+    id : 4,
+    name: 'Chris Jackson',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    subtitle: 'Vice Chairman'
+  },
+  {
+    id : 5,
+    name: 'Amy Farha',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    subtitle: 'Vice President'
+  },
+  {
+    name: 'Chris Jackson',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    subtitle: 'Vice Chairman'
+  },
+  {
+    name: 'Examen mathematique',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    subtitle: '17:00 - 19:00 Connecting to the development server...'
+  },
+  {
+    name: 'Chris Jackson',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    subtitle: 'Vice Chairman'
+  },
+  {
+    name: 'Amy Farha',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    subtitle: 'Vice President'
+  },
+  {
+    name: 'Chris Jackson',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    subtitle: 'Vice Chairman'
+  },
+  {
+    name: 'Amy Farha',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    subtitle: 'Vice President'
+  },
+  {
+    name: 'Chris Jackson',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    subtitle: 'Vice Chairman'
+  },
+
+]
+// const keyExtractor = (item, index) => index.toString()
 const styles = StyleSheet.create({
   item: {
     backgroundColor: 'white',
@@ -119,7 +151,7 @@ const styles = StyleSheet.create({
   },
   emptyDate: {
     height: 15,
-    flex:1,
+    flex: 1,
     paddingTop: 30
   }
 });

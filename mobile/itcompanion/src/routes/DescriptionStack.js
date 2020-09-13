@@ -12,7 +12,7 @@ function DescriptionStack() {
                 component={DescriptionScreen}
                 options={({ navigation }) => ({
                     header: () => (
-                        <Header title="Descriptionstest" hasBackButton={false} navigation={navigation} />
+                        <Header title="A propos" hasBackButton={false} navigation={navigation} />
                     )
                 })}
             />
