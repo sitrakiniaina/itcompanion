@@ -7,7 +7,7 @@ const paddingTopHeader = (Platform.OS === 'ios') ? 80 : 50;
 const paddingTopTitle = (Platform.OS === 'ios') ? 20 : 2;
 const paddingTopIcon = (Platform.OS === 'ios') ? 45 : 13;
 
-const Header = ({ navigation, title, hasBackButton }) => {
+const Header = ({ navigation, title, hasBackButton,enableDrawer }) => {
   const openMenu = () => {
     navigation.openDrawer();
   };
@@ -16,18 +16,22 @@ const Header = ({ navigation, title, hasBackButton }) => {
   };
   return (
     <View style={styles.header}>
-      <TouchableOpacity onPress={openMenu} style={styles.icons}>
-        <Ionicons name="md-menu" size={28} color="white" />
-      </TouchableOpacity>
+      {
+        enableDrawer ? (
+        <TouchableOpacity onPress={openMenu} style={styles.icons}>
+          <Ionicons name="md-menu" size={28} color="white" />
+        </TouchableOpacity>) : null
+      }
+
       <View style={styles.headerTitle}>
         <Text style={styles.headerText}>{title}</Text>
       </View>
       {
-        hasBackButton ?(
+        hasBackButton ? (
           <TouchableOpacity onPress={backButton} style={styles.goBack}>
             <Ionicons name="arrow-back-outline" size={30} color="white" />
           </TouchableOpacity>
-        ):null
+        ) : null
       }
 
     </View>
