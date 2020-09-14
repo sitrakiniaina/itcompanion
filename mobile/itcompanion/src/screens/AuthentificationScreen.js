@@ -9,12 +9,14 @@ import {
     Keyboard,
     TouchableOpacity,
     KeyboardAvoidingView,
+    Linking
 } from 'react-native';
 import {
     Colors
 } from 'react-native/Libraries/NewAppScreen';
 import PropTypes from 'prop-types';
 import EtuModal from '../components/EtuModal';
+import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN } from '../constants/Auth2Constant'; 
 
 class AuthentificationScreen extends Component {
     constructor(props) {
@@ -27,14 +29,14 @@ class AuthentificationScreen extends Component {
             studentToken: ""
         };
     }
+    
     componentDidMount() {
 
     }
     render() {
-        AuthentificationScreen.propTypes = {
-            classes: PropTypes.object.isRequired,
-        };
-        const { classes } = this.props;
+        // AuthentificationScreen.propTypes = {
+        //     classes: PropTypes.object.isRequired,
+        // };
         const { currentEvenement } = this.state;
         return (
             <>
@@ -91,7 +93,8 @@ class AuthentificationScreen extends Component {
                                 <TouchableOpacity
                                     style={styles.facebookbuttonStyle}
                                     activeOpacity={0.5}
-                                    onPress={() => this.props.navigation.navigate('App')}>
+                                    onPress={() =>Linking.openURL(FACEBOOK_AUTH_URL)}
+                                    >
                                      <Image 
                                         source={require("../assets/images/fb-logo.png")}
                                         style={styles.iconBtn}

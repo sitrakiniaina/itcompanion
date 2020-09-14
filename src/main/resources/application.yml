@@ -1,4 +1,7 @@
+server:  port: 8080  ssl:   key-store: F:/ssl/keystore.p12   key-store-password: azerty   keyStoreType: PKCS12   keyAlias: tomcat
 spring:
+  
+        
   #main:
     #lazy-initialization : true
   datasource:
@@ -41,9 +44,9 @@ app:
     # we'll be generating an auth token for the user and sending the token to the
     # redirectUri mentioned by the frontend client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
+    #myandroidapp://oauth2/redirect
     authorizedRedirectUris:
       - http://localhost:3000/oauth2/redirect
-      - myandroidapp://oauth2/redirect
-      - myiosapp://oauth2/redirect          
+      - itcompanion://oauth2      
        
          
