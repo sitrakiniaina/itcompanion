@@ -6,6 +6,16 @@ class PublicationService {
     return http.get("/publication/");
   }
 
+  getAll(titre,page,limit) {
+    return http.get("/publication/pagination",{
+      params: {
+        page: page,
+        limit : limit,
+        titre : titre
+      }
+    });
+  }
+
   get(id) {
     return http.get(`/publication/${id}`);
   }

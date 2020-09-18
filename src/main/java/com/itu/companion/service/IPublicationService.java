@@ -11,4 +11,5 @@ public interface IPublicationService {
 	void deleteById(Long id);
 	Publication save(Publication publication);
 	List<Publication> findAll();	
+	List<Publication> findAll(String name, int page, int limit);
 }

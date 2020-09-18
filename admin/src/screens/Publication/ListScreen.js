@@ -114,10 +114,13 @@ class ListScreen extends Component {
         this.state = {
             openModal: false,
             typepublication: "",
-            typepublications : [],
-            promotions : [],
+            typepublications: [],
+            promotions: [],
             showFilter: false,
             publications: [],
+            page: 0,
+            limit: 5,
+
 
         };
     }
@@ -163,10 +166,18 @@ class ListScreen extends Component {
             openModal: open
         });
     }
+
+    handleChangeTitre(event) {
+        this.setState({
+            titre: event.target.value
+        });
+
+    }
     handleChangeTypePublication = (event) => {
         this.setState({
             typepublication: event.target.value
         });
+
 
     };
     handleFilterButton() {
@@ -182,7 +193,7 @@ class ListScreen extends Component {
     }
 
     retrievePublications() {
-        PublicationService.getAll()
+        PublicationService.getAll(this.state.titre, this.state.page, this.state.limit)
             .then(response => {
                 this.setState({
                     publications: response.data
@@ -193,18 +204,23 @@ class ListScreen extends Component {
                 console.log(e);
             });
     }
+    searchButton() {
+        this.retrievePublications();
+    }
+    handleChangePage(){
+        this.setState({
+
+        });
+    }
+    handleChangeRowsPerPage(){
+        this.setState({
+            
+        });
+    }
     render() {
         const { classes } = this.props;
-        const rows = [
-            this.createData('1', 'Publication 1', "1159520490900274", "ITU Prom1", "20-08-2017", "20-08-2017"),
-            this.createData('2', 'Publication 2', "1159520490900274", "ITU Prom2", "20-08-2017", "20-08-2017"),
-            this.createData('4', 'Publication 4', "1159520490900274", "ITU Prom4", "20-08-2017", "20-08-2017"),
-            this.createData('5', 'Publication 5', "1159520490900274", "ITU Prom5", "20-08-2017", "20-08-2017"),
-            this.createData('6', 'Publication 6', "1159520490900274", "ITU Prom6", "20-08-2017", "20-08-2017"),
-            this.createData('7', 'Publication 7', "1159520490900274", "ITU Prom7", "20-08-2017", "20-08-2017"),
-            this.createData('8', 'Publication 8', "1159520490900274", "ITU Prom8", "20-08-2017", "20-08-2017"),
-        ];
-        const {typepublications,promotions} = this.state;
+
+        const { typepublications, promotions } = this.state;
         const headers = [
             createHeader('ID', 'justify'),
             createHeader('Titre', 'justify'),
@@ -251,7 +267,7 @@ class ListScreen extends Component {
                         {this.state.showFilter && (
                             <Grid className={classes.search}>
                                 <Grid className={classes.searchHead}>
-                                    <TextField id="standard-search" label="Libelle" type="search" variant="outlined" />
+                                    <TextField id="standard-search" label="Libelle" type="search" variant="outlined" onChange={this.handleChangeTitre.bind(this)} />
                                     <TextField
 
                                         id="outlined-select-currency-native"
@@ -296,7 +312,7 @@ class ListScreen extends Component {
                                         className={classes.searchButton}
                                         variant="contained"
                                         color="primary"
-                                        onClick={this.handleAddButton.bind(this)}
+                                        onClick={this.searchButton.bind(this)}
 
                                     >
                                         Rechercher
@@ -336,15 +352,15 @@ class ListScreen extends Component {
                         </Table>
                         {/* <Pagination count={10} color="primary" /> */}
                     </TableContainer>
-                    <TablePagination
+                    {/* <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
                         count={4}
-                        rowsPerPage={5}
+                        rowsPerPage={this.state.limit}
                         page={1}
-                    // onChangePage={handleChangePage}
-                    // onChangeRowsPerPage={handleChangeRowsPerPage}
-                    />
+                        onChangePage={this.handleChangePage.bind(this)}
+                        onChangeRowsPerPage={this.handleChangeRowsPerPage.bind(this)}
+                    /> */}
                 </Paper>
                 <CustomizedDialogs
                     open={this.state.openModal}

@@ -18,6 +18,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import PublicationService from '../../services/PublicationService';
 import PromotionService from '../../services/PromotionService';
 import TypepublicationService from '../../services/TypepublicationService';
+import history from '../../history';
 
 const styles = theme => ({
     root: {
@@ -194,7 +195,7 @@ class CreateScreen extends Component {
         console.log(data);
         PublicationService.create(data)
             .then(response => {
-                this.props.navigation.navigate("/publication");
+                history.push("/publication");
             }).catch(e => {
                 console.log(e);
             });

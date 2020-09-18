@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.itu.companion.model.Promotion;
 import com.itu.companion.model.Publication;
 import com.itu.companion.repository.PublicationRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class PublicationService implements IPublicationService {
@@ -38,6 +40,12 @@ public class PublicationService implements IPublicationService {
 	@Override
 	public List<Publication> findAll() {
 		return repository.findAll();
+	}
+
+	@Override
+	public List<Publication> findAll(String titre, int page, int limit) {
+		Pageable pageable = PageRequest.of(page, limit);
+		return repository.findByTitreContaining(titre, pageable);
 	}
 	
 	

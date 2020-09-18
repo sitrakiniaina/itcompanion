@@ -1,8 +1,10 @@
 package com.itu.companion.service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.itu.companion.model.Promotion;
@@ -32,6 +34,8 @@ public class PromotionService implements IPromotionService{
 
 	@Override
 	public List<Promotion> findAll() {
+		
+
 		return repository.findAll();
 	}
 
