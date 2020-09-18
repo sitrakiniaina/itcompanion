@@ -26,7 +26,7 @@ class AuthentificationScreen extends Component {
             currentEvenement: null,
             currentIndex: -1,
             classes: "",
-            studentToken: false,
+            studentToken: "",
             authenticated: false,
             currentUser: null,
             loading: false,
@@ -35,6 +35,7 @@ class AuthentificationScreen extends Component {
 
         };
         this.loadCurrentlyLoggedInUser = this.loadCurrentlyLoggedInUser.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
     }
 
     componentDidMount() {
@@ -43,6 +44,11 @@ class AuthentificationScreen extends Component {
             SplashScreen.hide();
         }
         
+    }
+    handleCloseModal(){
+        this.setState({
+            showPopUp : false
+        });
     }
     // componentWillUnmount() {
     //     this.loadCurrentlyLoggedInUser();
@@ -54,18 +60,17 @@ class AuthentificationScreen extends Component {
             if (token) {             
                 getCurrentUser(token)
                     .then(response => {
-                        console.log(response);
                         let showPopUp = false;
-                        if(response.etuid!==null){
+                        if(response.data.etuid!==null){
                             this.props.navigation.navigate("App");
                         }else{
                             showPopUp = true;
                         }
                         this.setState({
-                            currentUser: response,
+                            currentUser: response.data,
                             authenticated: true,
                             loading: true,
-                            studentToken : token,
+                            studentToken : response.data.etuid,
                             showPopUp : showPopUp
                         });
                     }).catch(error => {
@@ -78,7 +83,7 @@ class AuthentificationScreen extends Component {
         AuthentificationScreen.propTypes = {
 
         };
-        const { currentEvenement } = this.state;
+        
         return (
             <>
                 <View style={styles.mainBody}>
@@ -155,7 +160,8 @@ class AuthentificationScreen extends Component {
                             </KeyboardAvoidingView>
                         </View>
                     </ScrollView>
-                    <EtuModal studentToken={this.state.showPopUp}></EtuModal>
+                   
+                    <EtuModal closeModal = {()=>this.handleCloseModal()}navigation={this.props.navigation} showPopUp={this.state.showPopUp} id={this.state.currentUser?this.state.currentUser.id:null} ></EtuModal>
                 </View>
             </>
         );

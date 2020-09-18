@@ -13,7 +13,7 @@ function CariereStack() {
                 component={CariereScreen}
                 options={({ navigation }) => ({
                     header: () => (
-                        <Header title="Carières" hasBackButton={false} navigation={navigation} />
+                        <Header title="Carières"  enableDrawer={true} hasBackButton={true} navigation={navigation} />
                     )
                 })}
             />
