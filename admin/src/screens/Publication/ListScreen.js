@@ -26,7 +26,9 @@ import TextField from '@material-ui/core/TextField';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Pagination from '@material-ui/lab/Pagination';
 import TablePagination from '@material-ui/core/TablePagination';
-import PublicationService from '../../services/PublicationService';;
+import PublicationService from '../../services/PublicationService';
+import PromotionService from '../../services/PromotionService';
+import TypepublicationService from '../../services/TypepublicationService';
 
 const styles = theme => ({
     root: {
@@ -107,12 +109,39 @@ class ListScreen extends Component {
         this.handleChangeTypePublication = this.handleChangeTypePublication.bind(this);
         this.handleFilterButton = this.handleFilterButton.bind(this);
         this.retrievePublications = this.retrievePublications.bind(this);
+        this.retrievePromotions = this.retrievePromotions.bind(this);
+        this.retrieveTypepublication = this.retrieveTypepublication.bind(this);
         this.state = {
             openModal: false,
             typepublication: "",
+            typepublications : [],
+            promotions : [],
             showFilter: false,
-            publications: []
+            publications: [],
+
         };
+    }
+    retrieveTypepublication() {
+        TypepublicationService.getAll()
+            .then(response => {
+                this.setState({
+                    typepublications: response.data
+                });
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
+    retrievePromotions() {
+        PromotionService.getAll()
+            .then(response => {
+                this.setState({
+                    promotions: response.data
+                });
+            })
+            .catch(e => {
+                console.log(e);
+            });
     }
     createData(id, libelle, facebookid, facebooklibelle, datedebut, datefin) {
         return { id, libelle, facebookid, facebooklibelle, datedebut, datefin };
@@ -147,7 +176,9 @@ class ListScreen extends Component {
     };
 
     componentDidMount() {
-        this.retrievePublications()
+        this.retrievePublications();
+        this.retrievePromotions();
+        this.retrieveTypepublication();
     }
 
     retrievePublications() {
@@ -173,42 +204,7 @@ class ListScreen extends Component {
             this.createData('7', 'Publication 7', "1159520490900274", "ITU Prom7", "20-08-2017", "20-08-2017"),
             this.createData('8', 'Publication 8', "1159520490900274", "ITU Prom8", "20-08-2017", "20-08-2017"),
         ];
-        const types = [
-            {
-                value: '1',
-                label: 'Evenement',
-            },
-            {
-                value: '2',
-                label: 'Stage',
-            },
-            {
-                value: '3',
-                label: 'Emplois',
-            },
-            {
-                value: '4',
-                label: 'Actualité',
-            },
-        ];
-        const promotions = [
-            {
-                value: '1',
-                label: 'Promotion 1',
-            },
-            {
-                value: '2',
-                label: 'Promotion 2',
-            },
-            {
-                value: '3',
-                label: 'Promotion 3',
-            },
-            {
-                value: '4',
-                label: 'Promoition 4',
-            },
-        ];
+        const {typepublications,promotions} = this.state;
         const headers = [
             createHeader('ID', 'justify'),
             createHeader('Titre', 'justify'),
@@ -268,9 +264,9 @@ class ListScreen extends Component {
                                         }}
                                         variant="outlined"
                                     >
-                                        {types.map((option) => (
-                                            <option key={option.value} value={option.value}>
-                                                {option.label}
+                                        {typepublications.map((option) => (
+                                            <option key={option.id} value={option.id}>
+                                                {option.libelle}
                                             </option>
                                         ))}
                                     </TextField>
@@ -287,8 +283,8 @@ class ListScreen extends Component {
                                         variant="outlined"
                                     >
                                         {promotions.map((option) => (
-                                            <option key={option.value} value={option.value}>
-                                                {option.label}
+                                            <option key={option.id} value={option.id}>
+                                                {option.libelle}
                                             </option>
                                         ))}
                                     </TextField>

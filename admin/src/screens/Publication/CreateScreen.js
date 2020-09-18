@@ -194,7 +194,7 @@ class CreateScreen extends Component {
         console.log(data);
         PublicationService.create(data)
             .then(response => {
-                console.log(response.data);
+                this.props.navigation.navigate("/publication");
             }).catch(e => {
                 console.log(e);
             });

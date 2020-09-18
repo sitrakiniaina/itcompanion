@@ -27,7 +27,7 @@ public class Facebook extends ApiBinding{
 
 	//v8.0
 	private static final String GRAPH_API_BASE_URL = "https://graph.facebook.com/v8.0";
-	private static final String Access_token  = "EAAIoD1s2PTMBAEninXuAJnbGL3WtFKiSxvtZCceNSKqDVdaem0NPJiWbPhG0iFcAXItXTfe2iepuvQuh9zq6M8koFcyiFXWsaV59qaArEmGCDhHaICsuLP6HGQCxd4gW6ZA1xYDQ9ZBtgXUc6fjZAvDJLfimOdJ6iSpbGfy0E2pRRsr452u59xLo30sUvnKuxG7lEZBfc4QJxqtnCAOQV1Q0YVZBNZCjZBEaAentcVjbIUm1ZCvIe5ZBY9VV8Pe8Lubl8ZD";
+	private static final String Access_token  = "EAAIoD1s2PTMBAMBjnl1IAKIUJYgU8GS2G0cx6oPeLm1TJd5ta5I2W03ri6DWXOKSLmsme5ZCg5JtVZCtB5erZB4k8M0TD1fU5LSzZB9ipdNXpbmhtQtDtcvucRX5wWGWMpciEYItofNKP0phaZBR0FYIZCt1CtSCgvWUM9XE24IMnCZBsJWH8Wq";
 	private ObjectMapper om = new ObjectMapper();
 	
 	public Facebook(String access_token) {
