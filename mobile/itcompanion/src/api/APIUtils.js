@@ -1,51 +1,46 @@
 import { API_BASE_URL, ACCESS_TOKEN } from '../constants/Auth2Constant';
-
-const request = (options) => {
-    const headers = new Headers({
-        'Content-Type': 'application/json',
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
+import RNFetchBlob from 'react-native-fetch-blob';
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+export function getCurrentUser(token) {
+    return RNFetchBlob.config({
+        trusty: true
     })
-    
-    if(localStorage.getItem(ACCESS_TOKEN)) {
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
-    }
-
-    const defaults = {headers: headers};
-    options = Object.assign({}, defaults, options);
-
-    return fetch(options.url, options)
-    .then(response => 
-        response.json().then(json => {
-            if(!response.ok) {
-                return Promise.reject(json);
-            }
-            return json;
+        .fetch('GET', 'https://192.168.8.112:8080/user/me', {
+            Authorization: 'Bearer ' + token,
         })
-    );
-};
+        .then((response) => {
+            const rep = {
+                status: response.status,
+                data: JSON.parse(response.data)
+            }
+            return rep;
+        }).catch((error) => {
+            if (error.response) {
 
-export function getCurrentUser() {
-    if(!localStorage.getItem(ACCESS_TOKEN)) {
-        return Promise.reject("No access token set.");
-    }
+                /*
+                 * The request was made and the server responded with a
+                 * status code that falls out of the range of 2xx
+                 */
+                console.log("error.response");
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                /*
+                 * The request was made but no response was received, `error.request`
+                 * is an instance of XMLHttpRequest in the browser and an instance
+                 * of http.ClientRequest in Node.js
+                 */
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request and triggered an Error
+                console.log("error.message");
+                console.log('Error', error.message);
+            }
+        });
 
-    return request({
-        url: API_BASE_URL + "/user/me",
-        method: 'GET'
-    });
 }
 
-export function login(loginRequest) {
-    return request({
-        url: API_BASE_URL + "/auth/login",
-        method: 'POST',
-        body: JSON.stringify(loginRequest)
-    });
-}
 
-export function signup(signupRequest) {
-    return request({
-        url: API_BASE_URL + "/auth/signup",
-        method: 'POST',
-        body: JSON.stringify(signupRequest)
-    });
-}

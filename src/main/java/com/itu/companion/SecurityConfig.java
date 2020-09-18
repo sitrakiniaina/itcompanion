@@ -73,12 +73,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {		
+	protected void configure(HttpSecurity http) throws Exception {	
+//		requiresChannel().anyRequest().requiresSecure().and().
 		http.cors()
 				.and()
 				.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and().csrf().disable()
+				.and().csrf().disable()			
 				.formLogin().disable()
 				.httpBasic().disable()
 				.exceptionHandling()

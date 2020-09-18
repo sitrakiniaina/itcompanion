@@ -41,6 +41,8 @@ public class User {
     private String email;
 
     private String imageUrl;
+    
+    private String etuid;
 
     @Column(nullable = false)
     private Boolean emailVerified = false;
@@ -117,7 +119,16 @@ public class User {
 	public void setProviderId(String providerId) {
 		this.providerId = providerId;
 	}
+
+	public String getEtuid() {
+		return etuid;
+	}
+
+	public void setEtuid(String etuid) {
+		this.etuid = etuid;
+	}
     
+	
     
 	
 	

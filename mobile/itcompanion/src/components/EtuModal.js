@@ -3,17 +3,17 @@ import {Button, Text, View, TextInput, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 
 export default function EtuModal(args) {
-    console.log("makato");
+    
   const [isModalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     console.log("studentToken 1------ "+args.studentToken)
-    if(args.studentToken === 'wa') {
-        console.log("studentToken 2------ "+args.studentToken)
+    if(args.studentToken==true) {
+        // console.log("studentToken 2------ "+args.studentToken)
         setModalVisible(true);
-        console.log("anaty condition");
+        // console.log("anaty condition");
     }
-    console.log("isModalVisible ------ "+isModalVisible)
+    // console.log("isModalVisible ------ "+isModalVisible)
   }, [args])
 
   return (

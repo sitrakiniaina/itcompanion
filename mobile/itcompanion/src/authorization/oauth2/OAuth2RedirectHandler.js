@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Linking, Platform, Text, } from 'react-native';
-import AsyncStorage  from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage'
 import { ACCESS_TOKEN, ETU_ID } from '../../constants/Auth2Constant';
-import { Redirect } from 'react-router-dom'
+
 
 class OAuth2RedirectHandler extends Component {
     constructor(props) {
@@ -36,17 +36,23 @@ class OAuth2RedirectHandler extends Component {
         this.navigate(event.url);
     }
 
+    saveData = async (token, etuid) => {
+        try {
+            await AsyncStorage.setItem(ACCESS_TOKEN, token);
+            await AsyncStorage.setItem(ETU_ID, etuid);
+            // alert('Data successfully saved')
+        } catch (e) {
+            alert('Failed to save the data to the storage')
+        }
+    }
+
     navigate = (url) => {
         const { navigate } = this.props.navigation;
-        const token = this.getUrlParameter('token',url);   
-        const etuid = this.getUrlParameter('token',url);   
-        AsyncStorage.setItem(ACCESS_TOKEN, token);
-        AsyncStorage.setItem(ETU_ID, token);
-        if (token) {
-            navigate('App')
-        }else{
-            navigate('Auth')
-        };
+        const token = this.getUrlParameter('token', url);
+        const etuid = this.getUrlParameter('error', url);
+        console.log(token);
+        this.saveData(token, etuid);
+        navigate('Auth')
     }
 
     render() {

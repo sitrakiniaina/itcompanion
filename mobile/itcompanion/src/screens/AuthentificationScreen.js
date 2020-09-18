@@ -11,12 +11,12 @@ import {
     KeyboardAvoidingView,
     Linking
 } from 'react-native';
-import {
-    Colors
-} from 'react-native/Libraries/NewAppScreen';
 import PropTypes from 'prop-types';
 import EtuModal from '../components/EtuModal';
-import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN } from '../constants/Auth2Constant'; 
+import AsyncStorage from '@react-native-community/async-storage';
+import SplashScreen from 'react-native-splash-screen';
+import { getCurrentUser } from '../api/APIUtils';
+import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN } from '../constants/Auth2Constant';
 
 class AuthentificationScreen extends Component {
     constructor(props) {
@@ -26,17 +26,58 @@ class AuthentificationScreen extends Component {
             currentEvenement: null,
             currentIndex: -1,
             classes: "",
-            studentToken: ""
-        };
-    }
-    
-    componentDidMount() {
+            studentToken: false,
+            authenticated: false,
+            currentUser: null,
+            loading: false,
+            token: "",
+            showPopUp : false
 
+        };
+        this.loadCurrentlyLoggedInUser = this.loadCurrentlyLoggedInUser.bind(this);
+    }
+
+    componentDidMount() {
+        this.loadCurrentlyLoggedInUser();
+        if(!this.state.loading){
+            SplashScreen.hide();
+        }
+        
+    }
+    // componentWillUnmount() {
+    //     this.loadCurrentlyLoggedInUser();
+    //     // SplashScreen.hide();
+    // }
+    loadCurrentlyLoggedInUser() {
+        //AsyncStorage.clear();
+        AsyncStorage.getItem(ACCESS_TOKEN).then((token) => {
+            if (token) {             
+                getCurrentUser(token)
+                    .then(response => {
+                        console.log(response);
+                        let showPopUp = false;
+                        if(response.etuid!==null){
+                            this.props.navigation.navigate("App");
+                        }else{
+                            showPopUp = true;
+                        }
+                        this.setState({
+                            currentUser: response,
+                            authenticated: true,
+                            loading: true,
+                            studentToken : token,
+                            showPopUp : showPopUp
+                        });
+                    }).catch(error => {
+                        console.log(error);
+                    });               
+            }
+        });
     }
     render() {
-        // AuthentificationScreen.propTypes = {
-        //     classes: PropTypes.object.isRequired,
-        // };
+        AuthentificationScreen.propTypes = {
+
+        };
         const { currentEvenement } = this.state;
         return (
             <>
@@ -64,7 +105,7 @@ class AuthentificationScreen extends Component {
                                         placeholderTextColor="#F6F6F7"
                                         autoCapitalize="none"
                                         keyboardType="email-address"
-                                       
+
                                         returnKeyType="next"
                                         blurOnSubmit={false}
                                     />
@@ -87,34 +128,34 @@ class AuthentificationScreen extends Component {
                                 <TouchableOpacity
                                     style={styles.buttonStyle}
                                     activeOpacity={0.5}
-                                    onPress={() => this.props.navigation.navigate('App')}>                                   
+                                    onPress={() => this.props.navigation.navigate('App')}>
                                     <Text style={styles.buttonConnectTextStyle}>SE CONNECTER</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={styles.facebookbuttonStyle}
                                     activeOpacity={0.5}
-                                    onPress={() =>Linking.openURL(FACEBOOK_AUTH_URL)}
-                                    >
-                                     <Image 
+                                    onPress={() => Linking.openURL(FACEBOOK_AUTH_URL)}
+                                >
+                                    <Image
                                         source={require("../assets/images/fb-logo.png")}
                                         style={styles.iconBtn}
-                                    />                         
-                                    <Text style={styles.buttonTextStyle}> SE CONNECTER AVEC FACEBOOK</Text>                                   
+                                    />
+                                    <Text style={styles.buttonTextStyle}> SE CONNECTER AVEC FACEBOOK</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={styles.googlebuttonStyle}
                                     activeOpacity={0.5}
                                     onPress={() => this.props.navigation.navigate('App')}>
-                                    <Image 
+                                    <Image
                                         source={require("../assets/images/google-logo.png")}
                                         style={styles.iconBtn}
-                                    />      
+                                    />
                                     <Text style={styles.buttonTextStyle}>SE CONNECTER AVEC GOOGLE</Text>
                                 </TouchableOpacity>
                             </KeyboardAvoidingView>
                         </View>
                     </ScrollView>
-                    <EtuModal studentToken={this.state.studentToken}></EtuModal>
+                    <EtuModal studentToken={this.state.showPopUp}></EtuModal>
                 </View>
             </>
         );
@@ -174,7 +215,7 @@ const styles = {
         backgroundColor: '#d6492e',
         borderWidth: 0,
         color: '#d93025',
-        borderColor: '#7DE24E', 
+        borderColor: '#7DE24E',
         height: 40,
         alignItems: 'center',
         borderRadius: 20,

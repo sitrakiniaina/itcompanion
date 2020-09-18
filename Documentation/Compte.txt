@@ -19,3 +19,7 @@ https://www.freeprivacypolicy.com/live/a6c88a12-3230-453b-9eb1-5f4ced0db5f7
 
 Google
 API key : AIzaSyDiL7SMR7u0xU1FtSyO6bUV_aCpfu_uIbY
+
+adb reverse tcp:8163 tcp:8163
+
+keytool -importcert -file itcompanionCertificat.crt -alias tomcat -keystore cacerts
