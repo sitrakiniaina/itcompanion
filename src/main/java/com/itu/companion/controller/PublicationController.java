@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itu.companion.api.facebook.Facebook;
 import com.itu.companion.model.Promotion;
 import com.itu.companion.model.Publication;
 import com.itu.companion.service.IPromotionService;
@@ -25,6 +26,9 @@ public class PublicationController {
 	
 	@Autowired
 	private IPromotionService promotionService;
+	
+	@Autowired
+	private Facebook facebook;
 	
 	private ObjectMapper om = new ObjectMapper();
 	
@@ -42,9 +46,9 @@ public class PublicationController {
 		for (Promotion prom : temp.getPromotions()) {
 			Promotion tempprom = promotionService.findById(prom.getId());
 			publication.addPromotion(tempprom);	
-		}
+		}	
 		publicationService.save(publication);
-		
+		facebook.postFeed(publication);	
 		return new ResponseEntity<>(publication.getPromotions(),HttpStatus.OK);
 	}
 	

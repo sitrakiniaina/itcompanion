@@ -17,6 +17,7 @@ import Chip from '@material-ui/core/Chip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import PublicationService from '../../services/PublicationService';
 import PromotionService from '../../services/PromotionService';
+import TypepublicationService from '../../services/TypepublicationService';
 
 const styles = theme => ({
     root: {
@@ -62,6 +63,7 @@ class CreateScreen extends Component {
     constructor(props) {
         super(props);
         this.retrievePromotions = this.retrievePromotions.bind(this);
+        this.retrieveTypepublication = this.retrieveTypepublication.bind(this);
         this.handlePromtionChange = this.handlePromotionChange.bind(this);
         this.handleSubmitButton = this.handleSubmitButton.bind(this);
         this.handleTitre = this.handleTitre.bind(this);
@@ -78,7 +80,7 @@ class CreateScreen extends Component {
                 titre: '',
                 typepublication: {
                     id: 1
-                },
+                },               
                 dateDebut: "2017-05-24",
                 heureDebut: '08:00',
                 dateFin: "2017-05-24",
@@ -87,11 +89,25 @@ class CreateScreen extends Component {
                 lien: '',
                 promotions: []
             },
-            promotions: []
+            promotions: [],
+            typepublications: [],
         };
     }
     componentDidMount() {
         this.retrievePromotions();
+        this.retrieveTypepublication();
+    }
+
+    retrieveTypepublication() {
+        TypepublicationService.getAll()
+            .then(response => {
+                this.setState({
+                    typepublications: response.data
+                });
+            })
+            .catch(e => {
+                console.log(e);
+            });
     }
     retrievePromotions() {
         PromotionService.getAll()
@@ -185,7 +201,7 @@ class CreateScreen extends Component {
     }
     render() {
         const { classes } = this.props;
-        const { promotions, publication } = this.state;
+        const { promotions, publication, typepublications } = this.state;
 
         const types = [
             {
@@ -236,12 +252,14 @@ class CreateScreen extends Component {
                                     name="typepublication"
                                     onChange={this.handleType}
                                     value={publication.typepublication.id}
-                                 
-                                >
-                                    {types.map((option, i) => (
-                                        <MenuItem key={i} value={option.id}>{option.libelle}</MenuItem>
 
-                                    ))}
+                                >
+                                    {
+                                        typepublications.map((option, i) => (
+                                            <MenuItem key={i} value={option.id}>{option.libelle}</MenuItem>
+
+                                        ))
+                                    }
                                 </Select>
                             </FormControl>
 
@@ -255,7 +273,7 @@ class CreateScreen extends Component {
                                         name="date-debut"
                                         value={publication.dateDebut}
                                         onChange={(event, value) => this.handleDateDebut(value)}
-                                       
+
                                     />
                                 </FormControl>
                                 <FormControl className={classes.margin}>
@@ -317,7 +335,7 @@ class CreateScreen extends Component {
                                     onChange={this.handleLien}
                                 />
                             </FormControl>
-                           
+
                             <Autocomplete
                                 style={{ width: '100%' }}
                                 multiple
