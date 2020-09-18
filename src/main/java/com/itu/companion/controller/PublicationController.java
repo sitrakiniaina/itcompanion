@@ -44,6 +44,7 @@ public class PublicationController {
 			publication.addPromotion(tempprom);	
 		}
 		publicationService.save(publication);
+		
 		return new ResponseEntity<>(publication.getPromotions(),HttpStatus.OK);
 	}
 	
