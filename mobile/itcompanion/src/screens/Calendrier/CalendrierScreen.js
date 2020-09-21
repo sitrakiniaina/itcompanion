@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View, TouchableOpacity, Typography, ScrollView } from 'react-native';
 import { Agenda, Calendar } from 'react-native-calendars';
 import { Button, Card, Title, Paragraph, Divider } from 'react-native-paper';
-import { ListItem, Avatar, Icon } from 'react-native-elements'
+import { ListItem } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/Octicons';
 import data from '../../mock/data.js';
 export default class CalendrierScreen extends Component {
   constructor(props) {
@@ -10,7 +11,11 @@ export default class CalendrierScreen extends Component {
     this.initSelectedDate = this.initSelectedDate.bind(this);
     this.state = {
       items: {},
-      dateSelected: '',
+      dateSelected: {
+        ['2020-09-18']: {
+          selected: true, color: '#307ecc', selectedColor: '#466A8F'
+        }
+      },
       daySelected: ''
     };
   }
@@ -70,7 +75,7 @@ export default class CalendrierScreen extends Component {
           .filter(({ dateDebut }) => dateDebut === this.state.daySelected)
           .map((l, i) => (         
               <ListItem key={i} bottomDivider onPress={this.navigateToDetailsPage.bind(this)}>
-                <Icon name={"av-timer"} color='red' />
+                <Icon name='primitive-dot' color='#466A8F' size={30}/>
                 <ListItem.Content>
                   <ListItem.Title>{"." + l.name}</ListItem.Title>
                   <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
@@ -97,7 +102,8 @@ const list = [
     name: 'Examen mathematique',
     avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
     subtitle: '17:00 - 19:00 Connecting to the development server...',
-    dateDebut: '2020-09-18'
+    dateDebut: '2020-09-18',
+    type : 'examen'
   },
   {
     id: 2,

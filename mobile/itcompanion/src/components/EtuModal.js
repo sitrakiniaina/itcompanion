@@ -10,7 +10,6 @@ export default function EtuModal(props) {
   const [etuId, onChangeText] = useState("");
   useEffect(() => {
     setId(props.id);
-    console.log(props);
     if (props.showPopUp == true) {
       setModalVisible(true);
     }

@@ -17,6 +17,9 @@ import {
   Linking
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Anticons from 'react-native-vector-icons/AntDesign';
+import Octicons from 'react-native-vector-icons/Octicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 export default function HomeScreen({navigation}) {
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -38,7 +41,7 @@ export default function HomeScreen({navigation}) {
             <View style={styles.box_25}>
               <TouchableOpacity
                 style={styles.inner}
-                onPress={() => navigation.navigate('Calendrier')}>
+                onPress={() => navigation.navigate('Certificat')}>
                 <Ionicons name="document-sharp" size={50} color="white" />
                 <Text style={styles.sectionTitle}>DOCUMENTS</Text>
               </TouchableOpacity>
@@ -66,7 +69,7 @@ export default function HomeScreen({navigation}) {
             <View style={styles.box_75}>
               <TouchableOpacity
                 style={styles.inner_ce}
-                onPress={() => navigation.navigate('Calendrier')}>
+                onPress={() => navigation.navigate('Badge')}>
                 <Ionicons name="qr-code" size={50} color="white" />
                 <Text style={styles.sectionTitle}>CARTE D'ETUDIANT</Text>
               </TouchableOpacity>
@@ -75,7 +78,7 @@ export default function HomeScreen({navigation}) {
               <TouchableOpacity
                 style={styles.inner_note}
                 onPress={() => navigation.navigate('Calendrier')}>
-                <Ionicons name="qr-code" size={50} color="white" />
+                <Octicons name="graph" size={50} color="white" />
                 <Text style={styles.sectionTitle}>NOTES</Text>
               </TouchableOpacity>
             </View>
@@ -96,34 +99,27 @@ export default function HomeScreen({navigation}) {
 
           {/* section 4 */}
           <View style={styles.container}>
-            <View style={styles.box_25}>
-              <TouchableOpacity
-                style={styles.inner}
-                onPress={() => navigation.navigate('Calendrier')}>
-                <Ionicons name="document-sharp" size={50} color="white" />
-                <Text style={styles.sectionTitle}>DOCUMENTS</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.box_25}>
+            
+            <View style={styles.box}>
               <TouchableOpacity
                 style={styles.inner_calendar}
                 onPress={() => navigation.navigate('Calendrier')}>
-                <Ionicons name="calendar-sharp" size={50} color="white" />
-                <Text style={styles.sectionTitle}>CALENDRIER</Text>
+                <Ionicons name="basketball" size={50} color="white" />
+                <Text style={styles.sectionTitle}>SPORT</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.box}>
               <TouchableOpacity
                 style={styles.inner_examen}
                 onPress={() => navigation.navigate('Calendrier')}>
-                <Ionicons name="school" size={50} color="white" />
-                <Text style={styles.sectionTitle}>EXAMENS</Text>
+                <Anticons name="contacts" size={50} color="white" />
+                <Text style={styles.sectionTitle}>CONTACT</Text>
               </TouchableOpacity>
             </View>
           </View>
 
           {/* section 5 */}
-          <View style={styles.container}>
+          {/* <View style={styles.container}>
             <View style={styles.box_25}>
               <TouchableOpacity
                 style={styles.inner_ce}
@@ -140,10 +136,10 @@ export default function HomeScreen({navigation}) {
                 <Text style={styles.sectionTitle}>NOTES</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
 
           {/* section 6 */}
-          <View style={styles.container}>
+          {/* <View style={styles.container}>
             <View style={styles.box_25}>
               <TouchableOpacity
                 style={styles.inner}
@@ -168,10 +164,10 @@ export default function HomeScreen({navigation}) {
                 <Text style={styles.sectionTitle}>EXAMENS</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
 
           {/* section 7 */}
-          <View style={styles.container}>
+          {/* <View style={styles.container}>
             <View style={styles.box_100}>
               <TouchableOpacity
                 style={styles.inner_large}
@@ -180,7 +176,7 @@ export default function HomeScreen({navigation}) {
                 <Text style={styles.sectionTitle}>ME REPERER</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>

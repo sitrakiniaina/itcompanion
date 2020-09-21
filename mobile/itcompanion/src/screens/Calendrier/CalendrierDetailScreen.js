@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, Button, View, TouchableOpacity, Typography, ScrollView } from 'react-native';
 import { Agenda, Calendar } from 'react-native-calendars';
 import { Card, Title, Paragraph, Divider } from 'react-native-paper';
-import { ListItem, Avatar, Icon, Input } from 'react-native-elements'
+import { ListItem, Avatar, Input } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class CalendrierDetailScreen extends Component {
     constructor(props) {
@@ -18,25 +19,85 @@ export default class CalendrierDetailScreen extends Component {
             <>
                 <View style={styles.container}>
                     <Input
+                        style={styles.input}
                         placeholder='Examen Programmation'
-
+                        value="Examen Programmation"
+                        leftIcon={
+                            <Icon
+                                name='text'
+                                size={24}
+                                color='black'
+                            />
+                        }
                     />
                     <Input
+                        style={styles.input}
                         placeholder='Début'
-                        value='Jeu 03 2020 8:00'
+                        value='Jeu 03 2020 8:01'
+                        libelle="Début"
+                        leftIcon={
+                            <Icon
+                                name='calendar'
+                                size={24}
+                                color='black'
+                            />
+                        }
 
                     />
                     <Input
+                        style={styles.input}
                         placeholder='Fin'
-                        value='Jeu 03 2020 8:00'
+                        value='Jeu 03 2020  8:00'
+                        leftIcon={
+                            <Icon
+                                name='calendar'
+                                size={24}
+                                color='black'
+                            />
+                        }
+                    />
+                    <Input
+                        style={styles.input}
+                        placeholder='Lieu'
+                        // value='Ambohijanaka'
+                        leftIcon={
+                            <Icon
+                                name='location'
+                                size={24}
+                                color='black'
+                            />
+                        }
+                    />
+                    <Input
+                        style={styles.input}
+                        placeholder='Description'
+
+                        multiline={true}
+                        numberOfLines={4}
+                        leftIcon={
+                            <Icon
+                                name='document-text'
+                                size={24}
+                                color='black'
+                            />
+                        }
+                    />
+                    <Input
+                        accessibilityRole='timer'
+                        style={styles.input}
+                        placeholder='timer'
+                        value='08:00'
+                        leftIcon={
+                            <Icon
+                                name='alarm'
+                                size={24}
+                                color='black'
+                            />
+                        }
                     />
 
                 </View>
-                <View style={styles.description}>
-                    <Text style={styles.title}>
-                        Examen de Programmation avec le language C
-                    </Text>
-                </View>
+
                 {/* <View style={styles.containerButton}>
 
                     <Button
@@ -50,21 +111,6 @@ export default class CalendrierDetailScreen extends Component {
                         onPress={() => Alert.alert('Button with adjusted color pressed')}
                     />
                 </View> */}
-                {/* <Calendar
-                    style={[
-                        styles.calendar,
-                        {
-                            borderRadius: 5,
-                            borderBottomWidth: 1,
-                            borderBottomColor: 'lightgrey',
-                            marginBottom: 3,
-                        },
-                    ]}
-                    onDayPress={this.onDayPress}
-                    markedDates={this.state.dateSelected}
-                    markingType={'simple'}
-
-                /> */}
 
             </>
         );
@@ -73,12 +119,13 @@ export default class CalendrierDetailScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        display: 'flex',
+        flexDirection: 'column',
         backgroundColor: 'white',
-
         borderRadius: 5,
         padding: 10,
         margin: 10,
-        height: 230
+
     },
     item: {
         backgroundColor: 'white',
@@ -111,5 +158,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row',
         backgroundColor: 'white',
+    },
+    input: {
+        textAlign: 'left',
+        paddingLeft: 20
     }
 });

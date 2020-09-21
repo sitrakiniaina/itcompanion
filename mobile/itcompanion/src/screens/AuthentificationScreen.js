@@ -31,7 +31,8 @@ class AuthentificationScreen extends Component {
             currentUser: null,
             loading: false,
             token: "",
-            showPopUp : false
+            showPopUp : false,
+
 
         };
         this.loadCurrentlyLoggedInUser = this.loadCurrentlyLoggedInUser.bind(this);
@@ -39,7 +40,11 @@ class AuthentificationScreen extends Component {
     }
 
     componentDidMount() {
-        this.loadCurrentlyLoggedInUser();
+        this.mounted = true;
+        if(this.mounted){
+            this.loadCurrentlyLoggedInUser();
+        }
+        
         if(!this.state.loading){
             SplashScreen.hide();
         }
@@ -50,10 +55,14 @@ class AuthentificationScreen extends Component {
             showPopUp : false
         });
     }
-    // componentWillUnmount() {
-    //     this.loadCurrentlyLoggedInUser();
-    //     // SplashScreen.hide();
-    // }
+    componentWillUnmount() {
+        //this.loadCurrentlyLoggedInUser();
+        // if(!this.state.loading){
+        //     SplashScreen.hide();
+        // }
+        this.mounted = false;
+         //AsyncStorage.clear();
+    }
     loadCurrentlyLoggedInUser() {
         //AsyncStorage.clear();
         AsyncStorage.getItem(ACCESS_TOKEN).then((token) => {
@@ -62,17 +71,21 @@ class AuthentificationScreen extends Component {
                     .then(response => {
                         let showPopUp = false;
                         if(response.data.etuid!==null){
+                            this.setState({
+                                currentUser: response.data,
+                                authenticated: true,
+                                loading: true,
+                                studentToken : response.data.etuid,
+                                showPopUp : showPopUp
+                            });
                             this.props.navigation.navigate("App");
                         }else{
                             showPopUp = true;
+                            this.setState({                              
+                                showPopUp : showPopUp
+                            });
                         }
-                        this.setState({
-                            currentUser: response.data,
-                            authenticated: true,
-                            loading: true,
-                            studentToken : response.data.etuid,
-                            showPopUp : showPopUp
-                        });
+                       
                     }).catch(error => {
                         console.log(error);
                     });               

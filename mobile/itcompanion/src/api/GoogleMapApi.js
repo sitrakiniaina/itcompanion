@@ -13,7 +13,6 @@ export function getDirectionOpenRoute(origin, destination) {
             return rep;
         })
         .catch((error) => {
-            console.log(error.response.status)
             const err = {
                 status: error.response.status,
                 data: error.response.data
