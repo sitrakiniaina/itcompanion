@@ -19,6 +19,7 @@ import com.itu.companion.model.Promotion;
 import com.itu.companion.model.Publication;
 import com.itu.companion.service.IPromotionService;
 import com.itu.companion.service.IPublicationService;
+import com.itu.companion.util.ScraperUtils;
 
 @RestController
 public class PublicationController {
@@ -37,7 +38,7 @@ public class PublicationController {
 
 	@Transactional
 	@PostMapping("/api/publication/save")
-	public ResponseEntity<Object> savePublication(@RequestBody Publication publication) throws JsonProcessingException{	
+	public ResponseEntity<Object> savePublication(@RequestBody Publication publication) throws Exception{	
 		
 		Publication temp = new Publication() ;
 		temp.getPromotions().clear();
@@ -49,6 +50,7 @@ public class PublicationController {
 			Promotion tempprom = promotionService.findById(prom.getId());
 			publication.addPromotion(tempprom);	
 		}	
+		publication.setOgImage(ScraperUtils.getOGImage(publication.getLien()));
 		publicationService.save(publication);
 		facebook.postFeed(publication);	
 		return new ResponseEntity<>(publication.getPromotions(),HttpStatus.OK);
@@ -74,6 +76,11 @@ public class PublicationController {
 			@RequestParam(value = "titre", defaultValue = "") String titre) throws JsonProcessingException {
 		
 		return new ResponseEntity<>(om.writeValueAsString(publicationService.findAll(titre,page,limit)) ,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/api/publication/testscsraper", method = RequestMethod.GET)
+	public ResponseEntity<Object> testScraper(@RequestParam(value = "url") String  url) throws Exception {		
+		return new ResponseEntity<>(ScraperUtils.getOGImage("https://www.baeldung.com/java-with-jsoup") ,HttpStatus.OK);
 	}
 	
 }

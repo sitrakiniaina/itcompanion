@@ -38,11 +38,13 @@ public class Publication {
 	private String titre;
 	private String description;
 	private String lien;
-	private Date dateDebut;
+	private String ogImage;
+	private Date dateDebut;	
 	private Date dateFin;
 	private String heureDebut;
 	private String heureFin;
 	private String facebookid;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "idType", referencedColumnName = "idType")
@@ -63,6 +65,16 @@ public class Publication {
 	private Etat etat;
 	
 	
+	public String getOgImage() {
+		return ogImage;
+	}
+
+
+	public void setOgImage(String ogImage) {
+		this.ogImage = ogImage;
+	}
+
+
 	public Publication() {
 		super();
 	}

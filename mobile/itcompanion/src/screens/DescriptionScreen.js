@@ -6,14 +6,14 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-} from 'react-native';
+  import React from 'react';
+  import {
+    SafeAreaView,
+    StyleSheet,
+    ScrollView,
+    View,
+    Text,
+  } from 'react-native';
 
 import {
   Header,

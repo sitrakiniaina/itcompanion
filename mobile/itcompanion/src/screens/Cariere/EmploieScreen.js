@@ -1,36 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
+    SafeAreaView,
+    StyleSheet,
+    ScrollView,
+    View,
+    Text,
 } from 'react-native';
 
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
+    Colors,
+
 } from 'react-native/Libraries/NewAppScreen';
 import CustomCard from '../../components/Card';
+import { getPublication } from '../../services/PublicationService';
+
 export default function EmploieScreen() {
+  const [publications, setPublications] = useState([]);
+  useEffect(() => {
+    getStages();
+  }, [publications.length])
+
+  const getStages = () => {
+    getPublication().then(response => {
+      setPublications(response.data);
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
   return (
-    <>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <CustomCard/>
-          <CustomCard/>
-          <CustomCard/>
-          <CustomCard/>
-          <CustomCard/>
-          <CustomCard/>
-          <CustomCard/>
-          <CustomCard/>
-        </ScrollView>
-    </>
+
+    <ScrollView
+      contentInsetAdjustmentBehavior="automatic"
+      style={styles.scrollView}>
+      {
+        publications
+          .filter(({ typepublication }) => typepublication?.code === "emp")
+          .map((item) => (
+            <CustomCard titre={item.titre}
+              description={item.description}
+              dateDebut={item.dateDebut}
+              ogImage={item.ogImage}
+            />
+          ))
+      }
+
+    </ScrollView>
+
   );
 };
 
