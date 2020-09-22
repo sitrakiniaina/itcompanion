@@ -5,6 +5,7 @@ import {
     ScrollView,
     View,
     Text,
+    RefreshControl
 } from 'react-native';
 
 import {
@@ -18,27 +19,44 @@ import { getPublication } from '../../services/PublicationService';
 export default function StageScreen() {
 
     const [publications, setPublications] = useState([]);
+    const [refreshing, setRefreshing] = React.useState(false);
+
     useEffect(() => {
         getStages();
     }, [])
 
+    // const wait = (timeout) => {
+    //     return new Promise(resolve => {
+    //       setTimeout(resolve, timeout);
+    //     });
+    // }
+
     const getStages = () => {
         getPublication().then(response => {
             setPublications(response.data);
-        }).catch((error) => { 
+        }).catch((error) => {
             console.log(error);
         });
     };
+    // const onRefresh = React.useCallback(() => {
+    //     setRefreshing(true);
+
+    //     wait(getStages()).then(() => setRefreshing(false));
+    // }, []);
+
     return (
 
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
+            // refreshControl={
+            //     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            // }
             style={styles.scrollView}>
             {
                 publications
                     .filter(({ typepublication }) => typepublication?.code === "stage")
-                    .map((item,i) => (
-                        <CustomCard 
+                    .map((item, i) => (
+                        <CustomCard
                             key={i}
                             titre={item.titre}
                             description={item.description}
