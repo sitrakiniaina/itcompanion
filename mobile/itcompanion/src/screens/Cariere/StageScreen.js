@@ -20,12 +20,12 @@ export default function StageScreen() {
     const [publications, setPublications] = useState([]);
     useEffect(() => {
         getStages();
-    }, [publications.length])
+    }, [])
 
     const getStages = () => {
         getPublication().then(response => {
             setPublications(response.data);
-        }).catch((error) => {
+        }).catch((error) => { 
             console.log(error);
         });
     };
@@ -37,11 +37,14 @@ export default function StageScreen() {
             {
                 publications
                     .filter(({ typepublication }) => typepublication?.code === "stage")
-                    .map((item) => (
-                        <CustomCard titre={item.titre}
+                    .map((item,i) => (
+                        <CustomCard 
+                            key={i}
+                            titre={item.titre}
                             description={item.description}
                             dateDebut={item.dateDebut}
                             ogImage={item.ogImage}
+                            lien={item.lien}
                         />
                     ))
             }

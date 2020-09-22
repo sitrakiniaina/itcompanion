@@ -35,11 +35,14 @@ export default function EmploieScreen() {
       {
         publications
           .filter(({ typepublication }) => typepublication?.code === "emp")
-          .map((item) => (
-            <CustomCard titre={item.titre}
+          .map((item,i) => (
+            <CustomCard 
+              key={i}
+              titre={item.titre}
               description={item.description}
               dateDebut={item.dateDebut}
               ogImage={item.ogImage}
+              lien={item.lien}
             />
           ))
       }
