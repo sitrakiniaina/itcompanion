@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import { getCurrentUser } from '../api/APIUtils';
 import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN } from '../constants/Auth2Constant';
+import {setUser,getUser} from '../utilitaire/SessionUtil';
 
 class AuthentificationScreen extends Component {
     constructor(props) {
@@ -64,7 +65,7 @@ class AuthentificationScreen extends Component {
          //AsyncStorage.clear();
     }
     loadCurrentlyLoggedInUser() {
-        //AsyncStorage.clear();
+        // AsyncStorage.clear();
         AsyncStorage.getItem(ACCESS_TOKEN).then((token) => {
             if (token) {             
                 getCurrentUser(token)
@@ -78,6 +79,7 @@ class AuthentificationScreen extends Component {
                                 studentToken : response.data.etuid,
                                 showPopUp : showPopUp
                             });
+                            setUser(response.data);
                             this.props.navigation.navigate("App");
                         }else{
                             showPopUp = true;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import { getCurrentUserByEtuID } from '../api/APIUtils';
-
+import {getUser} from '../utilitaire/SessionUtil';
 export default function EtuModal(props) {
 
   const [isModalVisible, setModalVisible] = useState(false);
@@ -16,12 +16,13 @@ export default function EtuModal(props) {
   }, [props.id])
 
   const handleSubmit = () => {
-   // props.closeModal();
-    //props.navigation.navigate("App");
+    // props.closeModal();
+    //props.navigation.navigate("App"); 
     console.log("handle submit" + etuId);
     console.log("handle submit id" + id)
     getCurrentUserByEtuID(id, etuId).then((response) => {
-     props.navigation.navigate("App");
+      setUser(response);
+      props.navigation.navigate("App");
     }).catch((error) => {
       console.log(error);
     });
