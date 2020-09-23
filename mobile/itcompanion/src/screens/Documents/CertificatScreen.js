@@ -19,9 +19,19 @@ import {
 import { ListItem, Divider } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Octicons';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import { downloadFile } from '../../utilitaire/FileUtil';
+
 
 
 export default function CertificatScreen() {
+
+
+  const download = () => {
+    const url = 'https://certificat.b-cdn.net/CERTIFICAT%20DE%20SCOLARITE.pdf';
+    const filename = 'certificat';
+    downloadFile(url,filename);
+  }
+
   return (
     <>
       <View style={styles.body}>
@@ -37,13 +47,13 @@ export default function CertificatScreen() {
                   <ListItem.Title>{l.name}</ListItem.Title>
                   {/* <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle> */}
                 </ListItem.Content>
-                <ListItem.Chevron name="cloud-download" size={30} color='#466A8F'
+                <ListItem.Chevron onPress={download} name="cloud-download" size={30} color='#466A8F'
                 />
               </ListItem>
             ))}
         </ScrollView>
       </View>
-      <Divider style={{ backgroundColor: 'blue',margin:10 }} />
+      <Divider style={{ backgroundColor: 'blue', margin: 10 }} />
       <View style={styles.body}>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Demande en attente de validation</Text>
@@ -55,7 +65,7 @@ export default function CertificatScreen() {
                 <IonIcon name='document-attach' color='#466A8F' size={30} />
                 <ListItem.Content>
                   <ListItem.Title>{l.name}</ListItem.Title>
-                 
+
                 </ListItem.Content>
                 <ListItem.Chevron name="more-horiz" size={30} color='#466A8F'
                 />
@@ -151,5 +161,5 @@ const list2 = [
     dateDebut: '2020-09-18',
     type: 'examen'
   },
-  
+
 ]

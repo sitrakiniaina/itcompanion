@@ -1,70 +1,181 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+
+import React, { useState, useEffect } from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  Button,
+  Alert
+} from 'react-native';
+import {
+  Header,
+  LearnMoreLinks,
+  Colors,
+  DebugInstructions,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
+import ChoiceModal from '../../components/ChoiceModal';
+import { ListItem, Divider } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/Octicons';
+import IonIcon from 'react-native-vector-icons/Ionicons';
+import { downloadFile } from '../../utilitaire/FileUtil';
+
+
 
 export default function NoteScreen() {
-    return (
-      <>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-           
-            <View style={styles.body}>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>L'AVENIR N'A PAS DE PRIX</Text>
-                <Text style={styles.sectionDescription}>    
-                IT University
-  Diplômes habilités par l’Enseignement Supérieur – Système LMD
-  IT University est un établissement d’enseignement supérieur privé spécialisé en informatique, créé en 2011, pour répondre aux  besoins du secteur professionnel en matière de nouvelles technologies.
-  IT University adopte le système LMD et offre actuellement une formation de 3ans après le BAC, dans les modules suivants :
-  
-  Licence spécialisée en développement d’applications (Programmation)
-  Licence spécialisée en Base de données et Réseaux
-  Licence spécialisée  en Web Intégration et Web designer
-  Après ce programme , tous les sortants d’IT University seront  tout de suite opérationnels, IT University met surtout en exergue la base mathématique dans son programme, afin de permettre aux étudiants d’avoir un bon niveau de raisonnement  et  de continuer leurs études en master et en doctorat.         
-                </Text>
-              </View>
-            
-            </View>
-          </ScrollView>
-      </>
-    );
-  };
-  
-  const styles = StyleSheet.create({
-    scrollView: {
-      backgroundColor: Colors.lighter,
-    },
-    engine: {
-      position: 'absolute',
-      right: 0,
-    },
-    body: {
-      backgroundColor: Colors.white,
-    },
-    sectionContainer: {
-      marginTop: 32,
-      paddingHorizontal: 24,
-    },
-    sectionTitle: {
-      fontSize: 24,
-      fontWeight: '600',
-      color: Colors.black,
-    },
-    sectionDescription: {
-      marginTop: 8,
-      fontSize: 18,
-      fontWeight: '400',
-      color: Colors.dark,
-    },
-    highlight: {
-      fontWeight: '700',
-    },
-    footer: {
-      color: Colors.dark,
-      fontSize: 12,
-      fontWeight: '600',
-      padding: 4,
-      paddingRight: 12,
-      textAlign: 'right',
-    },
-  });
+
+  const [isVisible, setVisible] = useState(false);
+  const [filename, setFileName] = useState("Releveé de note");
+  const download = () => {
+    const url = 'https://certificat.b-cdn.net/CERTIFICAT%20DE%20SCOLARITE.pdf';
+    const filename = 'releve-de-note';
+    downloadFile(url, filename);
+  }
+
+  const setSemestre = (value) => {
+    let name = "Relevé de note";
+    let test = "test";
+    value.map(x => (
+      name +=" ",
+      name += x
+      
+    ));
+    console.log(name);
+    setFileName(name);
+    setVisible(false);
+  }
+
+  const handlClickButton = () => {
+    console.log("miditra ato");
+    setVisible(true);
+  }
+  return (
+    <>
+      <View style={styles.body}>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Notes et résultats</Text>
+        </View>
+        <ScrollView>
+          {list
+            .map((l, i) => (
+              <ListItem key={i} bottomDivider >
+                <IonIcon name='document-attach' color='#466A8F' size={30} />
+                <ListItem.Content>
+                  <ListItem.Title>{l.name}</ListItem.Title>
+                </ListItem.Content>
+                <ListItem.Chevron onPress={download} name="cloud-download" size={30} color='#466A8F'
+                />
+              </ListItem>
+            ))}
+        </ScrollView>
+      </View>
+      <Divider style={{ backgroundColor: 'blue', margin: 10 }} />
+      <View style={styles.body}>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Demande en attente de validation</Text>
+        </View>
+
+        <ScrollView>
+          <ListItem bottomDivider >
+            <IonIcon name='document-attach' color='#466A8F' size={30} />
+            <ListItem.Content>
+              <ListItem.Title>{filename}</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Chevron name="more-horiz" size={30} color='#466A8F'
+            />
+          </ListItem>
+        </ScrollView>
+      </View>
+      <View style={styles.footer}>
+        <Button
+
+          color="#7DE24E"
+          style={styles.button}
+          title={"Demander relevé de note" + isVisible}
+          onPress={handlClickButton}
+        />
+      </View>
+      <ChoiceModal isVisible={isVisible} setSemestre={setSemestre}></ChoiceModal>
+
+
+
+    </>
+  );
+};
+
+const styles = StyleSheet.create({
+  scrollView: {
+    backgroundColor: Colors.lighter,
+  },
+  engine: {
+    position: 'absolute',
+    right: 0,
+  },
+  body: {
+    backgroundColor: Colors.white,
+  },
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: Colors.black,
+  },
+  sectionDescription: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: '400',
+    color: Colors.dark,
+  },
+  highlight: {
+    fontWeight: '700',
+  },
+  footer: {
+    color: Colors.dark,
+    fontSize: 1,
+    fontWeight: '600',
+    padding: 4,
+    paddingRight: 12,
+    textAlign: 'right',
+  },
+  button: {
+    borderRadius: 20,
+    backgroundColor: 'red',
+    width: 45
+  }
+});
+
+const list = [
+  {
+    id: 1,
+    name: 'Relevé de note S1',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    subtitle: '17:00 - 19:00 Connecting to the development server...',
+    dateDebut: '2020-09-18',
+    type: 'examen'
+  },
+  {
+    id: 2,
+    name: 'Relevé de note S2',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    subtitle: 'Vice Chairman',
+    dateDebut: '2020-09-18'
+  },
+
+
+]
+const list2 = [
+  {
+    id: 1,
+    name: 'Relevé de note S3',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    subtitle: '17:00 - 19:00 Connecting to the development server...',
+    dateDebut: '2020-09-18',
+    type: 'examen'
+  },
+
+]

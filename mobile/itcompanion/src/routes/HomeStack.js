@@ -9,6 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { DrawerActions } from '@react-navigation/native';
 import Map from '../screens/Map/MapScreen';
 import Badge from '../screens/Badge/BadgeScreen';
+import Note from '../screens/Note/NoteScreen';
 const Stack = createStackNavigator();
 export default function HomeStack() {
   return (
@@ -64,6 +65,15 @@ export default function HomeStack() {
         options={({ navigation }) => ({
           header: () => (
             <Header title="Carte d'étudiant" enableDrawer={true} hasBackButton={true} navigation={navigation} />
+          )
+        })}
+      />
+      <Stack.Screen
+        name="Note"
+        component={Note}
+        options={({ navigation }) => ({
+          header: () => (
+            <Header title="Notes" enableDrawer={true} hasBackButton={true} navigation={navigation} />
           )
         })}
       />

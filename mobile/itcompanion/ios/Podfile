@@ -12,6 +12,10 @@ target 'itcompanion' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'RNFileViewer', :path => '../node_modules/react-native-file-viewer'
+
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'itcompanionTests' do
     inherit! :complete
     # Pods for testing

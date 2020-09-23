@@ -29,7 +29,7 @@ export default function HomeScreen({navigation}) {
             <View style={styles.box_100}>
               <TouchableOpacity
                 style={styles.inner_large}
-                onPress={() => navigation.navigate('App')}>
+                onPress={() => navigation.navigate('Map')}>
                 <Ionicons name="location" size={50} color="white" />
                 <Text style={styles.sectionTitle}>ME REPERER</Text>
               </TouchableOpacity>
@@ -77,7 +77,7 @@ export default function HomeScreen({navigation}) {
             <View style={styles.box_25}>
               <TouchableOpacity
                 style={styles.inner_note}
-                onPress={() => navigation.navigate('Calendrier')}>
+                onPress={() => navigation.navigate('Note')}>
                 <Octicons name="graph" size={50} color="white" />
                 <Text style={styles.sectionTitle}>NOTES</Text>
               </TouchableOpacity>
