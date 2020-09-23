@@ -21,20 +21,11 @@ export async function getUser() {
     }catch(e){
         console.log(e);
     }
-    // return AsyncStorage.getItem(USER)
-    //     .then((currentUser) => {
-    //         console.log(currentUser);
-    //         // console.log(typeof currentUser);
-    //         const rep = JSON.parse(currentUser);
-    //         //console.log(typeof rep);
-    //         console.log("efa mivoaka aloha ny rep ID" + rep.id);
-    //         return currentUser;
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     });
+    
 
 }
 
 export function logOut() {
-    AsyncStorage.clear();
+    console.log("makato");
+     AsyncStorage.clear();
 }

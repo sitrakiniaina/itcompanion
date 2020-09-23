@@ -35,8 +35,21 @@ public class User {
 
     @Column(nullable = false)
     private String name;
+    
 
-    @Email
+    private String lastName;
+    
+    private String firstName;
+
+    public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	@Email
     @Column(nullable = false)
     private String email;
 
@@ -126,6 +139,14 @@ public class User {
 
 	public void setEtuid(String etuid) {
 		this.etuid = etuid;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
     
 	

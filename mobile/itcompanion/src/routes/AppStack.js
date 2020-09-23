@@ -7,10 +7,14 @@ import HomeStack from './HomeStack';
 import DescriptionStack from './DescriptionStack';
 import CariereStack from './CariereStack';
 const Drawer = createDrawerNavigator();
-export default function AppStack() {
+export default function AppStack(props) {
+    const handleNavigateTo= () =>{
+        console.log("ddddd"+props);
+        props.navigation.navigate('Auth');
+    }
     return (
         <Drawer.Navigator initialRouteName="Home"
-            drawerContent={(props) => <DrawerContent {...props} />}>
+            drawerContent={(props,navigation) => <DrawerContent {...props} navigateTo={()=>handleNavigateTo()}/>}>
             <Drawer.Screen name="Home" component={HomeStack}
                 options={{
                     drawerIcon: config => <Icon
@@ -29,7 +33,7 @@ export default function AppStack() {
                         size={23}
                         name={Platform.OS === 'android' ? 'business' : 'business'}></Icon>
                 }} />
-            <Drawer.Screen name="Profile" component={CariereStack}
+            <Drawer.Screen name="Profile"  component={CariereStack}
                 options={{
                     drawerIcon: config => <Icon
                         size={24}

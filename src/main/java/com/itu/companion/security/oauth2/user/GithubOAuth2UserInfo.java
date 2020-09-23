@@ -22,10 +22,22 @@ public class GithubOAuth2UserInfo extends OAuth2UserInfo{
 	public String getEmail() {
 		return (String) attributes.get("email");
 	}
+	
+	@Override
+	public String getFirstName() {
+		
+		return "firstname";
+	}
 
 	@Override
 	public String getImageUrl() {
 		return (String) attributes.get("avatar_url");
+	}
+
+	@Override
+	public String getLastName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -47,8 +47,11 @@ export default function BadgeScreen() {
                         />
                     </View>
                     <View style={styles.text_content}>
-                        <Text style={{ fontSize: 20, flexWrap: 'wrap', marginTop: 5 }}>
-                            {currentUser?.name}
+                        <Text style={{ fontSize: 19, flexWrap: 'wrap', marginTop: 5 }}>
+                            {currentUser?.lastName}
+                        </Text>
+                        <Text style={{ fontSize: 18, flexWrap: 'wrap', marginTop: 5 }}>
+                            {currentUser?.firstName}
                         </Text>
 
                         <Text style={{ fontSize: 14, marginTop: 5 }}>

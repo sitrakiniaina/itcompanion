@@ -65,7 +65,7 @@ class AuthentificationScreen extends Component {
          //AsyncStorage.clear();
     }
     loadCurrentlyLoggedInUser() {
-        // AsyncStorage.clear();
+        //AsyncStorage.clear();
         AsyncStorage.getItem(ACCESS_TOKEN).then((token) => {
             if (token) {             
                 getCurrentUser(token)
