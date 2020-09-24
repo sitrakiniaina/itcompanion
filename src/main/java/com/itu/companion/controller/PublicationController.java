@@ -2,6 +2,7 @@ package com.itu.companion.controller;
 
 import javax.transaction.Transactional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,8 @@ import com.itu.companion.model.Publication;
 import com.itu.companion.service.IPromotionService;
 import com.itu.companion.service.IPublicationService;
 import com.itu.companion.util.ScraperUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 @RestController
 public class PublicationController {
@@ -53,7 +56,7 @@ public class PublicationController {
 		publication.setOgImage(ScraperUtils.getOGImage(publication.getLien()));
 		publicationService.save(publication);
 		facebook.postFeed(publication);	
-		return new ResponseEntity<>(publication.getPromotions(),HttpStatus.OK);
+		return new ResponseEntity<>(publication,HttpStatus.OK);
 	}
 	
 	@RequestMapping("/api/savePromotion")
@@ -71,11 +74,15 @@ public class PublicationController {
 	}
 	
 	@RequestMapping(value = "/api/publication/pagination", method = RequestMethod.GET)
-	public ResponseEntity<Object> listPublication(@RequestParam(value = "page", defaultValue = "1") int page,
+	public ResponseEntity<Object> listPublication(@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "limit", defaultValue = "10") int limit,
-			@RequestParam(value = "titre", defaultValue = "") String titre) throws JsonProcessingException {
+			@RequestParam(value = "titre", defaultValue = "") String titre,
+			@RequestParam(value = "type", defaultValue = "") Long type) throws JsonProcessingException {
 		
-		return new ResponseEntity<>(om.writeValueAsString(publicationService.findAll(titre,page,limit)) ,HttpStatus.OK);
+//		Page<Publication> pageable = new PageImpl<>(publicationService.findAllPage(titre,page,limit));
+		return new ResponseEntity<>((om.writeValueAsString(publicationService.findAllPage(titre,type,page,limit))),HttpStatus.OK);
+
+//		return new ResponseEntity<>(om.writeValueAsString(publicationService.findAll(titre,page,limit)) ,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/api/publication/testscsraper", method = RequestMethod.GET)

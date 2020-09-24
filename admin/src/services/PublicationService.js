@@ -6,12 +6,13 @@ class PublicationService {
     return http.get("/publication/");
   }
 
-  getAll(titre,page,limit) {
+  getAll(titre,page,limit,type) {
     return http.get("/publication/pagination",{
       params: {
         page: page,
         limit : limit,
-        titre : titre
+        titre : titre,
+        type : type
       }
     });
   }

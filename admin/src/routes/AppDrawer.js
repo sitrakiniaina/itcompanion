@@ -87,7 +87,7 @@ export default function AppDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const { openDrawer } = props;  
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
   const itemsList = [
     {
       text: "Home",

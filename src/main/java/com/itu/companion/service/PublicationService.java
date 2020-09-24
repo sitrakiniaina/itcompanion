@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.itu.companion.model.Promotion;
 import com.itu.companion.model.Publication;
 import com.itu.companion.repository.PublicationRepository;
+
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -45,7 +47,19 @@ public class PublicationService implements IPublicationService {
 	@Override
 	public List<Publication> findAll(String titre, int page, int limit) {
 		Pageable pageable = PageRequest.of(page, limit);
-		return repository.findByTitreContaining(titre, pageable);
+		return (List<Publication>) repository.findByTitreContainingAndTypepublicationId(titre, 1L, pageable);
+	}
+
+	@Override
+	public Page<Publication> findAllPage(String titre,Long type, int page, int limit) {
+		Pageable pageable = PageRequest.of(page, limit);
+		return repository.findByTitreContainingAndTypepublicationId(titre,type, pageable);
+	}
+
+	@Override
+	public Page<Publication> findAllPage(String name, int page, int limit) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

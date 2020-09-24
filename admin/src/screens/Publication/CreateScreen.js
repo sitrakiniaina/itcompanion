@@ -67,14 +67,15 @@ class CreateScreen extends Component {
         this.retrieveTypepublication = this.retrieveTypepublication.bind(this);
         this.handlePromtionChange = this.handlePromotionChange.bind(this);
         this.handleSubmitButton = this.handleSubmitButton.bind(this);
-        this.handleTitre = this.handleTitre.bind(this);
-        this.handleType = this.handleType.bind(this);
-        this.handleDateDebut = this.handleDateDebut.bind(this);
-        this.handleHeureDebut = this.handleHeureDebut.bind(this);
-        this.handleDateFin = this.handleDateFin.bind(this);
-        this.handleHeureFin = this.handleHeureFin.bind(this);
-        this.handleDescription = this.handleDescription.bind(this);
-        this.handleLien = this.handleLien.bind(this);
+        //this.handleTitre = this.handleTitre.bind(this);
+        ///this.handleType = this.handleType.bind(this);
+      
+        // this.handleHeureDebut = this.handleHeureDebut.bind(this);
+        // this.handleDateFin = this.handleDateFin.bind(this);
+        // this.handleHeureFin = this.handleHeureFin.bind(this);
+        // this.handleDescription = this.handleDescription.bind(this);
+        // this.handleLien = this.handleLien.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.save = this.save.bind(this);
         this.state = {
             publication: {
@@ -144,12 +145,23 @@ class CreateScreen extends Component {
             publication: publication
         });
     }
-    handleDateDebut(value) {
-        let publication = this.state.publication;
-        publication.dateDebut = value;
+    
+    handleInputChange(event) {
+        let name = event.target.name;
+        let value = event.target.value;     
         this.setState({
-            publication: publication
-        });
+            publication: {                   // object that we want to update
+                ...this.state.publication,    // keep all other key-value pairs
+                [name]: value,// update the value of specific key
+                typepublication :{
+                    ...this.state.publication.typepublication,
+                    [name]: value
+                }
+                       
+            }
+        })     
+        console.log("input "+event.target.name+"   "+this.state.publication[event.target.name]);
+        
     }
     handleHeureDebut(value) {
         let publication = this.state.publication;
@@ -235,25 +247,24 @@ class CreateScreen extends Component {
                     <Container className={classes.containerroot}>
                         <Grid className={classes.form}>
                             <FormControl fullWidth className={classes.margin}>
-                                <InputLabel htmlFor="libelle">Titre</InputLabel>
+                                <InputLabel htmlFor="titre">Titre</InputLabel>
                                 <Input
                                     required
-                                    id="libelle"
-                                    name="libelle"
+                                    id="titre"
+                                    name="titre"
                                     type="text"
                                     value={publication.titre}
-                                    onChange={this.handleTitre}
+                                    onChange={this.handleInputChange}
                                     variant="filled"
                                 />
                             </FormControl>
                             <FormControl fullWidth className={classes.margin}>
                                 <InputLabel htmlFor="typepublication">Type</InputLabel>
                                 <Select
-                                    id="typepublication"
-                                    name="typepublication"
-                                    onChange={this.handleType}
+                                    id="id"
+                                    name="id"
+                                    onChange={this.handleInputChange}
                                     value={publication.typepublication.id}
-
                                 >
                                     {
                                         typepublications.map((option, i) => (
@@ -271,46 +282,46 @@ class CreateScreen extends Component {
                                         required
                                         id="date-debut"
                                         type="date"
-                                        name="date-debut"
+                                        name="dateDebut"
                                         value={publication.dateDebut}
-                                        onChange={(event, value) => this.handleDateDebut(value)}
+                                        onChange={this.handleInputChange}
 
                                     />
                                 </FormControl>
                                 <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="heure-debut">Heure début</InputLabel>
+                                    <InputLabel htmlFor="heureDebut">Heure début</InputLabel>
                                     <Input
                                         required
-                                        id="heure-debut"
+                                        id="heureDebut"
                                         type="time"
-                                        name="heure-debut"
+                                        name="heureDebut"
                                         value={publication.heureDebut}
-                                        onChange={(event, value) => this.handleHeureDebut(value)}
+                                        onChange={this.handleInputChange}
                                     />
                                 </FormControl>
                             </Grid>
                             <Grid>
                                 <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="date-fin">Date fin</InputLabel>
+                                    <InputLabel htmlFor="dateFin">Date fin</InputLabel>
                                     <Input
                                         required
-                                        id="date-fin"
+                                        id="dateFin"
                                         type="date"
-                                        name="date-fin"
+                                        name="dateFin"
                                         value={publication.dateFin}
-                                        onChange={(event, value) => this.handleDateFin(value)}
+                                        onChange={this.handleInputChange}
 
                                     />
                                 </FormControl>
                                 <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="heure-fin">Heure fin</InputLabel>
+                                    <InputLabel htmlFor="heureFin">Heure fin</InputLabel>
                                     <Input
                                         required
-                                        id="heure-fin"
+                                        id="heureFin"
                                         type="time"
-                                        name="heure-fin"
+                                        name="heureFin"
                                         value={publication.heureFin}
-                                        onChange={(event, value) => this.handleHeureFin(value)}
+                                        onChange={this.handleInputChange}
                                     />
                                 </FormControl>
                             </Grid>
@@ -322,7 +333,7 @@ class CreateScreen extends Component {
                                 multiline
                                 rows={4}
                                 value={publication.description}
-                                onChange={this.handleDescription}
+                                onChange={this.handleInputChange}
                                 variant="filled"
                             />
 
@@ -333,7 +344,7 @@ class CreateScreen extends Component {
                                     id="lien"
                                     type="text"
                                     value={publication.lien}
-                                    onChange={this.handleLien}
+                                    onChange={this.handleInputChange}
                                 />
                             </FormControl>
 

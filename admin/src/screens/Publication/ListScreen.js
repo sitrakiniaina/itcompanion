@@ -29,6 +29,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import PublicationService from '../../services/PublicationService';
 import PromotionService from '../../services/PromotionService';
 import TypepublicationService from '../../services/TypepublicationService';
+import { renderDateFormat } from '../../utilitaire/dateUtil';
+import Chip from '@material-ui/core/Chip';
 
 const styles = theme => ({
     root: {
@@ -88,8 +90,17 @@ const styles = theme => ({
     },
     searchHead: {
         width: '75%',
-
-
+    },
+    paginationBox: {
+        height: '53px',
+        marginTop: '15px',
+        backgroundColor: 'lightgrey',
+        display: 'flex',
+        justifyContent: 'center',
+        paddingTop: '10px'
+    },
+    chip :{
+        marginRight :'4px'
     }
 });
 
@@ -113,13 +124,17 @@ class ListScreen extends Component {
         this.retrieveTypepublication = this.retrieveTypepublication.bind(this);
         this.state = {
             openModal: false,
-            typepublication: "",
+            typepublication: 1,
             typepublications: [],
             promotions: [],
             showFilter: false,
             publications: [],
             page: 0,
             limit: 5,
+            totalPages: null,
+            itemsCountPerPage: null,
+            totalItemsCount: null,
+            activePage: 0,
 
 
         };
@@ -174,6 +189,7 @@ class ListScreen extends Component {
 
     }
     handleChangeTypePublication = (event) => {
+        
         this.setState({
             typepublication: event.target.value
         });
@@ -193,10 +209,16 @@ class ListScreen extends Component {
     }
 
     retrievePublications() {
-        PublicationService.getAll(this.state.titre, this.state.page, this.state.limit)
+        PublicationService.getAll(this.state.titre, this.state.activePage, this.state.limit,this.state.typepublication)
             .then(response => {
+                const totalPages = response.data.totalPages;
+                const itemsCountPerPage = response.data.size;
+                const totalItemsCount = response.data.totalElements;
+                this.setState({ totalPages: totalPages })
+                this.setState({ totalItemsCount: totalItemsCount })
+                this.setState({ itemsCountPerPage: itemsCountPerPage })
                 this.setState({
-                    publications: response.data
+                    publications: response.data.content
                 });
                 console.log(response.data);
             })
@@ -207,16 +229,13 @@ class ListScreen extends Component {
     searchButton() {
         this.retrievePublications();
     }
-    handleChangePage(){
+    handleChangePage(event, page) {
         this.setState({
+            activePage: page - 1
+        });
+        this.retrievePublications();
+    }
 
-        });
-    }
-    handleChangeRowsPerPage(){
-        this.setState({
-            
-        });
-    }
     render() {
         const { classes } = this.props;
 
@@ -225,7 +244,7 @@ class ListScreen extends Component {
             createHeader('ID', 'justify'),
             createHeader('Titre', 'justify'),
             createHeader('Promotion', 'justify'),
-            createHeader('Promotion Fb ID', 'justify'),
+            createHeader('Type publication', 'justify'),
             createHeader('Date début', 'right'),
             createHeader('Date fin', 'right'),
             createHeader('', 'center')
@@ -291,8 +310,8 @@ class ListScreen extends Component {
                                         id="outlined-select-currency-native"
                                         select
                                         label="Promotion"
-                                        value={this.state.typepublication}
-                                        onChange={this.handleChangeTypePublication}
+                                        //value={this.state.typepublication}
+                                        //onChange={this.handleChangeTypePublication}
                                         SelectProps={{
                                             native: true,
                                         }}
@@ -331,36 +350,37 @@ class ListScreen extends Component {
                             </TableHead>
                             <TableBody>
                                 {this.state.publications.map((row) => (
-                                    row.promotions.map((promotion) => (
-                                        <StyledTableRow key={row.id + "_" + promotion.id}>
-                                            <TableCell >{row.id}</TableCell>
-                                            <TableCell >
-                                                {row.titre}
-                                            </TableCell>
-                                            <TableCell >{promotion.libelle}</TableCell>
-                                            <TableCell >{promotion.facebookid}</TableCell>
-                                            <TableCell align="right">{row.dateDebut}</TableCell>
-                                            <TableCell align="right">{row.dateFin}</TableCell>
-                                            <TableCell align="right">
-                                                <CustomIconButton label="Editer" event={this.handleEditButton.bind(this)}></CustomIconButton>
-                                                <CustomIconButton label="Supprimer" event={this.handleClickModal.bind(this, true)}></CustomIconButton>
-                                            </TableCell>
-                                        </StyledTableRow>
-                                    ))
+
+                                    <StyledTableRow key={row.id}>
+                                        <TableCell >{row.id}</TableCell>
+                                        <TableCell >
+                                            {row.titre}
+                                        </TableCell>
+                                        <TableCell >
+                                            {
+                                                row.promotions.map((promotion) => (
+                                                    <Chip className={classes.chip} label={promotion.libelle} color="primary" />
+                                                ))}
+                                        </TableCell>
+                                        <TableCell >{row.typepublication.libelle}</TableCell>
+                                        <TableCell align="right">{renderDateFormat(row.dateDebut)}</TableCell>
+                                        <TableCell align="right">{renderDateFormat(row.dateFin)}</TableCell>
+                                        <TableCell align="right">
+                                            <CustomIconButton label="Editer" event={this.handleEditButton.bind(this)}></CustomIconButton>
+                                            <CustomIconButton label="Supprimer" event={this.handleClickModal.bind(this, true)}></CustomIconButton>
+                                        </TableCell>
+                                    </StyledTableRow>
+
                                 ))}
                             </TableBody>
                         </Table>
-                        {/* <Pagination count={10} color="primary" /> */}
+
                     </TableContainer>
-                    {/* <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        count={4}
-                        rowsPerPage={this.state.limit}
-                        page={1}
-                        onChangePage={this.handleChangePage.bind(this)}
-                        onChangeRowsPerPage={this.handleChangeRowsPerPage.bind(this)}
-                    /> */}
+                    <Grid className={classes.paginationBox}>
+                        <Pagination count={this.state.totalPages} page={this.state.activePage + 1} onChange={this.handleChangePage.bind(this)} color="primary" shape="rounded" />
+                    </Grid>
+
+
                 </Paper>
                 <CustomizedDialogs
                     open={this.state.openModal}

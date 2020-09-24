@@ -13,7 +13,10 @@ public class ScraperUtils {
 			String rep= null;
 			Elements elements = document.select("meta[property=og:image]");
 			if(elements!=null) {
-				rep = elements.first().attr("content");
+				if(elements.first()!=null) {
+					rep = elements.first().attr("content");
+				}
+				
 			}
 				              
 			return rep;
