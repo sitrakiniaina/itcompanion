@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import { getCurrentUserByEtuID } from '../api/APIUtils';
-import {getUser} from '../utilitaire/SessionUtil';
+import {getUser,setUser} from '../utilitaire/SessionUtil';
 export default function EtuModal(props) {
 
   const [isModalVisible, setModalVisible] = useState(false);
@@ -16,12 +16,8 @@ export default function EtuModal(props) {
   }, [props.id])
 
   const handleSubmit = () => {
-    // props.closeModal();
-    //props.navigation.navigate("App"); 
-    console.log("handle submit" + etuId);
-    console.log("handle submit id" + id)
-    getCurrentUserByEtuID(id, etuId).then((response) => {
-      setUser(response);
+    getCurrentUserByEtuID(id, etuId).then((response) => {   
+      setUser(response.data);
       props.navigation.navigate("App");
     }).catch((error) => {
       console.log(error);
@@ -30,7 +26,7 @@ export default function EtuModal(props) {
 
   return (
     <View style={{ flex: 1 }}>
-      <Modal isVisible={isModalVisible}>
+      <Modal isVisible={props.showPopUp}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Veuillez entrer votre ETU Id</Text>
           <View style={{ flex: 1, flexDirection: 'row' }}>

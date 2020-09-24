@@ -17,7 +17,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import { getCurrentUser } from '../api/APIUtils';
 import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN } from '../constants/Auth2Constant';
-import {setUser,getUser} from '../utilitaire/SessionUtil';
+import { setUser, getUser } from '../utilitaire/SessionUtil';
 
 class AuthentificationScreen extends Component {
     constructor(props) {
@@ -32,7 +32,7 @@ class AuthentificationScreen extends Component {
             currentUser: null,
             loading: false,
             token: "",
-            showPopUp : false,
+            showPopUp: false,
 
 
         };
@@ -42,18 +42,18 @@ class AuthentificationScreen extends Component {
 
     componentDidMount() {
         this.mounted = true;
-        if(this.mounted){
+        if (this.mounted) {
             this.loadCurrentlyLoggedInUser();
         }
-        
-        if(!this.state.loading){
+
+        if (!this.state.loading) {
             SplashScreen.hide();
         }
-        
+
     }
-    handleCloseModal(){
+    handleCloseModal() {
         this.setState({
-            showPopUp : false
+            showPopUp: false
         });
     }
     componentWillUnmount() {
@@ -62,35 +62,36 @@ class AuthentificationScreen extends Component {
         //     SplashScreen.hide();
         // }
         this.mounted = false;
-         //AsyncStorage.clear();
+        //AsyncStorage.clear();
     }
     loadCurrentlyLoggedInUser() {
         //AsyncStorage.clear();
         AsyncStorage.getItem(ACCESS_TOKEN).then((token) => {
-            if (token) {             
+            if (token) {
                 getCurrentUser(token)
                     .then(response => {
                         let showPopUp = false;
-                        if(response.data.etuid!==null){
-                            this.setState({
-                                currentUser: response.data,
-                                authenticated: true,
-                                loading: true,
-                                studentToken : response.data.etuid,
-                                showPopUp : showPopUp
-                            });
+                        this.setState({
+                            currentUser: response.data,
+                            authenticated: true,
+                            loading: true,
+                            studentToken: response.data.etuid,
+                            showPopUp: showPopUp
+                        });
+                        if (response.data.etuid !== null) {                                             
                             setUser(response.data);
                             this.props.navigation.navigate("App");
-                        }else{
+                        } else {
                             showPopUp = true;
-                            this.setState({                              
-                                showPopUp : showPopUp
+                            this.setState({
+                                showPopUp: showPopUp
                             });
+                            console.log(this.state.showPopUp);
                         }
-                       
+
                     }).catch(error => {
                         console.log(error);
-                    });               
+                    });
             }
         });
     }
@@ -98,7 +99,7 @@ class AuthentificationScreen extends Component {
         AuthentificationScreen.propTypes = {
 
         };
-        
+
         return (
             <>
                 <View style={styles.mainBody}>
@@ -175,8 +176,8 @@ class AuthentificationScreen extends Component {
                             </KeyboardAvoidingView>
                         </View>
                     </ScrollView>
-                   
-                    <EtuModal closeModal = {()=>this.handleCloseModal()}navigation={this.props.navigation} showPopUp={this.state.showPopUp} id={this.state.currentUser?this.state.currentUser.id:null} ></EtuModal>
+
+                    <EtuModal closeModal={() => this.handleCloseModal()} navigation={this.props.navigation} showPopUp={this.state.showPopUp} id={this.state.currentUser ? this.state.currentUser.id : null} ></EtuModal>
                 </View>
             </>
         );
